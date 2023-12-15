@@ -1,0 +1,149 @@
+#!/bin/sh
+
+				# Persist RGB (prgb)
+			# Persistent OpenRGB profile selector
+
+# This is meant to be used 3 potential ways:
+#
+# 	1 - along side a custom daemon/service managed by any service manager (e.g. systemd)
+# 	that runs program on startup, reboot and after suspend
+# 	2 - put it on your bash_profile and call it a day (easier, unless want to conf it 
+# 	for suspend triggers)
+# 	3 - general scripring (from menus to daemons, anything you want)
+
+
+#
+# How to setup for persistent usage (see NOTE below too see why do it this way):
+#	- Download script and add to PATH variable
+#	- Add the next line: 
+#		(prgb > /dev/null/ &)
+#	to your shell profile (e.g .bash_profile) for 
+#	a per user OpenRGB profile configuration 
+#	- Create & a daemon to runn program after suspend
+#
+# Example of .service file used to run daemon for suspend triggers with systemd:
+: '
+	[Unit]
+	Description=Run PRGB afte suspend and hibernate
+	After=network.target multi-user.target suspend.target hibernate.target
+
+	[Service]
+	Type=oneshot
+	ExecStart=/usr/bin/openrgb --autostart-check
+	ExecStop=/path/to/this/program
+	User=<username>
+	Group=<group>
+
+	[Install]
+	WantedBy=suspend.target hibernate.target
+'
+# NOTE: Because of some problem with OpenRGB itself 
+# ( here's why -> https://gitlab.com/CalcProgrammer1/OpenRGB/-/issues/1270 )
+# can't run this program as daemon on reboot/boot (at least with systemd).
+# So the workaround was to use the  systemd unit config from above
+# and startup this program on, in my case, .bash_profile instead of 
+# having systemd do this on startup
+
+
+
+confdir=~/.config/prgb
+conffile=~/.config/prgb/config # <<-- here resides the prefprof variable
+[ -f $conffile ] && source $conffile
+
+
+
+# First check if mf has everything needed (conf dir & optionally the openrgb server daemon running)
+[ ! -d ~/.config/OpenRGB ] && echo "OpenRGB config dir doesn't exist" && exit 1
+if ! pgrep -x "openrgb" > /dev/null 
+then
+    echo "WARNING: Not running OpenRGB server"
+    echo "OpenRGB could be runnning as daemon with the --server flag for a BIT faster user experience"
+fi
+
+
+usage() {
+	program="$(basename "$0" | sed 's/\(.*\)\..*/\1/')"
+	echo "Persist RGB (${program})"
+	echo "Usage: ${program} [OPTION] [ARGUMENT?]"
+	echo "-l, --list	 	List existing OpenRGB profiles"
+	echo "-p, --profile [NAME]	Set and persist existing OpenRGB profile."
+	echo "-m, --modify-profiles 	Open OpenRGB GUI for more visual profile modification."
+	echo "-h, --help		Print this help menu."
+}
+
+create_conf_files_if_not_already() {
+	[ ! -d ${confdir} ] && mkdir ${confdir} && echo "Created prgb config directory at ${confdir}"
+	[ ! -f ${conffile} ] && touch ${conffile} \
+		&& echo "Created prgb config file at ~/.config/prgb/config" \
+		&& chmod +x ${conffile} \
+		&& echo "Error trying to make conf file executable!"
+}
+
+
+if [ "$#" -eq 0 ]; then
+	[ -z $prefprof ] && echo "Warning: No preferred profile is set, using random color" \
+	&& openrgb -c random \
+	&& exit 1
+
+	echo "Reading preferred profile from config file at ~/.config/prgb/config" ; echo "Loading..." &
+	openrgb -p ~/.config/OpenRGB/"$prefprof".orp 
+	echo "Loaded profile \"${prefprof}\""
+fi
+
+
+profiles=()
+for file in ~/.config/OpenRGB/*.orp; do
+	pname="$(basename "$file" | sed 's/\(.*\)\..*/\1/')"
+	profiles+=($pname)
+done
+
+
+OPTS=$(getopt --options p:mlh --longoptions 'profile:,modify-profiles,list,help' -n prgb -- $@)
+eval set -- "$OPTS"
+while [[ -n "$@" ]]; do
+	case "$1" in
+		-p | --profile)
+			echo "Trying to set ${2}.orp as profile"
+			if [[ ! "${profiles[@]}" =~ "${2}" ]]; then
+				echo "Profile \"${2}\" doesn't exist." 
+				exit 1
+			fi
+				
+			[[ "$2" == "$prefprof" ]] && echo "Profile already loaded" && exit 0
+
+			openrgb -p ~/.config/OpenRGB/"$2".orp
+			create_conf_files_if_not_already
+			echo "#!/bin/sh" > ${conffile} ; echo "prefprof=${2}" >> ${conffile} &
+			echo "Loaded profile \"${2}\"" &
+			shift 2
+			;;
+		-m | --modify-profiles)
+			echo "Opening OpenRGB GUI for more visual profile modification..."
+			(openrgb > /dev/null 2>&1 &)
+			shift 2
+			;;
+		-l | --list)
+			echo "Current profiles:"
+			for value in "${profiles[@]}"
+			do
+				echo "-> $value"
+			done
+			shift 2
+			;;
+		-h | --help)
+			usage
+			break
+			;;
+		--)
+			break
+			;;
+		*)
+			echo "Unrecognized option '$1'"
+			usage
+		;;
+	esac
+	
+done
+
+
+
