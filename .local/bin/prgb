@@ -4,14 +4,11 @@
 			# Persistent OpenRGB profile selector
 
 # This is meant to be used 3 potential ways:
-#
 # 	1 - along side a custom daemon/service managed by any service manager (e.g. systemd)
 # 	that runs program on startup, reboot and after suspend
 # 	2 - put it on your bash_profile and call it a day (easier, unless want to conf it 
 # 	for suspend triggers)
 # 	3 - general scripring (from menus to daemons, anything you want)
-
-
 #
 # How to setup for persistent usage (see NOTE below too see why do it this way):
 #	- Download script and add to PATH variable
@@ -50,17 +47,6 @@ confdir=~/.config/prgb
 conffile=~/.config/prgb/config # <<-- here resides the prefprof variable
 [ -f $conffile ] && source $conffile
 
-
-
-# First check if mf has everything needed (conf dir & optionally the openrgb server daemon running)
-[ ! -d ~/.config/OpenRGB ] && echo "OpenRGB config dir doesn't exist" && exit 1
-if ! pgrep -x "openrgb" > /dev/null 
-then
-    echo "WARNING: Not running OpenRGB server"
-    echo "OpenRGB could be runnning as daemon with the --server flag for a BIT faster user experience"
-fi
-
-
 usage() {
 	program="$(basename "$0" | sed 's/\(.*\)\..*/\1/')"
 	echo "Persist RGB (${program})"
@@ -80,6 +66,14 @@ create_conf_files_if_not_already() {
 }
 
 
+# First check if mf has everything needed (conf dir & optionally the openrgb server daemon running)
+[ ! -d ~/.config/OpenRGB ] && echo "OpenRGB config dir doesn't exist" && exit 1
+if ! pgrep -x "openrgb" > /dev/null 
+then
+    echo "WARNING: Not running OpenRGB server"
+    echo "OpenRGB could be runnning as daemon with the --server flag for a BIT faster user experience"
+fi
+
 if [ "$#" -eq 0 ]; then
 	[ -z $prefprof ] && echo "Warning: No preferred profile is set, using random color" \
 	&& openrgb -c random \
@@ -88,6 +82,7 @@ if [ "$#" -eq 0 ]; then
 	echo "Reading preferred profile from config file at ~/.config/prgb/config" ; echo "Loading..." &
 	openrgb -p ~/.config/OpenRGB/"$prefprof".orp 
 	echo "Loaded profile \"${prefprof}\""
+	exit 0
 fi
 
 
