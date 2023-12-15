@@ -19,7 +19,7 @@
 #		(prgb > /dev/null/ &)
 #	to your shell profile (e.g .bash_profile) for 
 #	a per user OpenRGB profile configuration 
-#	- Create & a daemon to runn program after suspend
+#	- Create daemon to run program after suspend
 #
 # Example of .service file used to run daemon for suspend triggers with systemd:
 : '
