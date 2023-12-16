@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Change working directory so that relative imports work from within wal.js
+
+cd ~/.local/bin/theme-setter
+node sync-wal-openrgb.js
