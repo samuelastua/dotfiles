@@ -36,9 +36,20 @@
 #
 
 # Do some checking of dependencies 
-type wal > /dev/null || echo "Need pywall installed to work :'v" ; exit 1
-type openrgb > /dev/null || echo "Need openrgb installed to work :'v" ;  exit 1 
-! pgrep -x openrgb > /dev/null && echo "Need openrgb server running as daemon"; exit 1
+type wal > /dev/null || {
+	echo "Need pywall installed to work :'v"
+	exit 1
+}
+
+type openrgb > /dev/null || {
+	echo "Need openrgb installed to work :'v"
+	exit 1 
+}
+
+! pgrep -x openrgb > /dev/null && {
+	echo "Need openrgb server running as daemon"
+	exit 1
+}
 
 
 # Change working directory so that relative imports work from within wal.js

@@ -37,23 +37,30 @@
 #
 # This way wal1.png is set on your display 0 (check this with 'xrandr --listmonitors")
 # and wal2.png is set on your display 1 (and so on with every argument and every display).
+#
+#
+# PENDING: 
+# 	- receive argument to get if $1 is dark enough
+# 	to saturate pywal behavior so OpenRGB colors are brighter
+# 	- Add support for a more fine grained feh bg conf (output, and
+# 	bg mode (tiled, fill, center) 
 
-type  feh > /dev/null ||  {
-		echo "Need feh installed to work :'v" 
-		exit 1
+type feh > /dev/null || {
+	echo "Need feh installed to work :'v"
+	exit 1
 	}
-type wal > /dev/null ||  {
-		echo "Need pywal installed to work :'v" 
-		exit 1
-	}
+type wal > /dev/null || {
+	echo "Need pywal installed to work :'v"
+	exit 1
+	}	
+type swo > /dev/null || {
+	echo "Need swo installed to work :'v"
+	exit 1
+}
 
-type swo > /dev/null ||  {
-		echo "Need swo installed to work :'v" 
-		exit 1
-	}
 
 [ -z $1 ] && { 
-	~/.fehbg || echo "ERROR: Didn't found necessary ~/.fehbg executable" ; exit 1
+	~/.fehbg 
 	wal -nR # -n so bg doesnt change and keep bg confed by feh
 	swo &
 	exit 0
@@ -68,13 +75,7 @@ type swo > /dev/null ||  {
 
 
 wal -n -i "$1"  -o swo > /dev/null &
-#wal -n -i "$1" --saturate 0.7 -o swo > /dev/null &
 feh --bg-fill "$@" 
+swo
 
-
-# PENDING: 
-# 	- receive argument to get if $1 is dark enough
-# 	to saturate pywal behavior so OpenRGB colors are brighter
-# 	- Add support for a more fine grained feh bg conf (output, and
-# 	bg mode (tiled, fill, center) 
 
