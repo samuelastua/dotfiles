@@ -74,6 +74,7 @@ then
     echo "OpenRGB could be runnning as daemon with the --server flag for a BIT faster user experience"
 fi
 
+# if no args are passed at all
 if [ "$#" -eq 0 ]; then
 	[ -z $prefprof ] && echo "Warning: No preferred profile is set, using random color" \
 	&& openrgb -c random \

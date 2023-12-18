@@ -1,0 +1,80 @@
+#!/bin/sh
+
+
+#					stheme (set theme)
+# Just a utility to set global themes around all my system (rgb, wallpaper(s), colorschemes).
+# I should come up with a better name, the current one is pretty damm boring.
+#
+# IMPORTANT NOTES:
+#  	- This only works with X (yeah, don't plan to support Wayland or any other(for now..))
+#  	- To make it persistent just exceute this program whenever you start your 
+#  	  X server (e.g in your .xinitrc)
+#	- It assigns wallpapers by mapping argument number with screen monitor. (fot now...)
+#	- Colorsheme is set based on your first argument (i.e first wallpaper) (for now...)
+#	- OpenRGB server running as daemon
+#
+# CURRENT STATE AND FUTURE FEATURES:
+#	- Don't plan to add features right now, but when I decide to add features I will 
+#	probably add...
+#		- More fine grained contro over screen-to-wallpaper mapping (should probably 
+#		do some more hackerman argument parsing)
+#		- Make it possible to select which file/wallpaper to use to create the
+#		colorscheme
+#		- Make OpenRGB OPTIONAL so users and opt out/in of it (depending if
+#		it tries to sync PyWal and OpenRGB by default or not)
+#		
+# DEPENDENCIES:
+# 	
+# 	- pywal
+# 	- feh
+# 	- openrgb
+# 	- swo (sync pywal and openrgb)
+#
+#
+# USAGE EXAMPLE:
+#
+#	theme setter wal1.png wal2.png
+#
+# This way wal1.png is set on your display 0 (check this with 'xrandr --listmonitors")
+# and wal2.png is set on your display 1 (and so on with every argument and every display).
+
+type  feh > /dev/null ||  {
+		echo "Need feh installed to work :'v" 
+		exit 1
+	}
+type wal > /dev/null ||  {
+		echo "Need pywal installed to work :'v" 
+		exit 1
+	}
+
+type swo > /dev/null ||  {
+		echo "Need swo installed to work :'v" 
+		exit 1
+	}
+
+[ -z $1 ] && { 
+	~/.fehbg || echo "ERROR: Didn't found necessary ~/.fehbg executable" ; exit 1
+	wal -nR # -n so bg doesnt change and keep bg confed by feh
+	swo &
+	exit 0
+}
+
+[ $1 = "-h" ] && {
+	echo "Usage: theme-setter [FILES...]"
+	echo "Description: assign wallpaper by mapping argument number with screen monitor."
+	echo "Check for screen numbers with \"xrandr --listmonitors\""
+	exit 0
+}
+
+
+wal -n -i "$1"  -o swo > /dev/null &
+#wal -n -i "$1" --saturate 0.7 -o swo > /dev/null &
+feh --bg-fill "$@" 
+
+
+# PENDING: 
+# 	- receive argument to get if $1 is dark enough
+# 	to saturate pywal behavior so OpenRGB colors are brighter
+# 	- Add support for a more fine grained feh bg conf (output, and
+# 	bg mode (tiled, fill, center) 
+

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# 				  swo
+#			(Sync pyWal and Openrgb)
+#
+# DESCRIPTION
+#
+#	Script wrapper the runs a js script that syncs your pywal colorscheme
+#  	with all your OpenRGB-compatible devies. For this to work it need the
+#  	OpenRGB server running as daemon.
+#
+#
+# CURRENT STATE AND FUTURE FEATURES
+#
+#	- I might modify the js program or completely rewrite all of
+#	it, I would most definitely use a compiled programming language
+#	so this script wrapper isn't necessary and it can be executed
+#	directly from the command line.
+#	
+#	- I might add some extra features for a more fine grained control
+#	over RGB customization and animations 
+#
+# DEPENDENCIES:
+#
+# 	- pywal
+# 	- openrgb (running as daemon with the  --server flag)
+#
+# USAGE
+# 	swo
+#
+# NOTES
+# 	- I didn't create the js program that this script executes, it was this 
+# 	guy -> https://gist.github.com/4Ply but I needed to wrap his original 
+# 	program (https://gist.github.com/4Ply/f94e5be2756c50520db79bfe16b355e4) 
+# 	to run it on a shell script, so I forked it.
+#
+
+# Do some checking of dependencies 
+type wal > /dev/null || echo "Need pywall installed to work :'v" ; exit 1
+type openrgb > /dev/null || echo "Need openrgb installed to work :'v" ;  exit 1 
+! pgrep -x openrgb > /dev/null && echo "Need openrgb server running as daemon"; exit 1
+
+
+# Change working directory so that relative imports work from within wal.js
+cd ~/.local/bin/swo.d
+node swo.js
+
