@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 #					stheme (set theme)
@@ -16,12 +16,16 @@
 # CURRENT STATE AND FUTURE FEATURES:
 #	- Don't plan to add features right now, but when I decide to add features I will 
 #	probably add...
+#		- Fix error when bad args are passed
 #		- More fine grained contro over screen-to-wallpaper mapping (should probably 
 #		do some more hackerman argument parsing)
 #		- Make it possible to select which file/wallpaper to use to create the
 #		colorscheme
 #		- Make OpenRGB OPTIONAL so users and opt out/in of it (depending if
 #		it tries to sync PyWal and OpenRGB by default or not)
+#		- Make it so that if no ~/.fegbg was found then use colors
+#		from pywal colorscheme to generate background on every X
+#		screen
 #		
 # DEPENDENCIES:
 # 	
@@ -60,7 +64,11 @@ type swo > /dev/null || {
 
 
 [ -z $1 ] && { 
-	~/.fehbg 
+	~/.fehbg || {
+		echo "No wallpaper previously confed with feh (no ~/.fehbg present)"
+		echo "Pls cofig wallpaper with feh previously or argument a file image to this command"
+		exit 1
+	}
 	wal -nR # -n so bg doesnt change and keep bg confed by feh
 	swo &
 	exit 0
@@ -74,8 +82,27 @@ type swo > /dev/null || {
 }
 
 
-wal -n -i "$1"  -o swo > /dev/null &
-feh --bg-fill "$@" 
-swo
+
+
+wal -n -i "$1"  -o swo &
+feh --bg-fill "$@" && echo "[INFO]: Succesfully set wallpaper(s)"
+swo && echo "[INFO]: Succesfully synced pywal & openrgb"
+
+type spicetify > /dev/null && {
+	spicetify apply && {
+		echo "[INFO]: Succesfully re-applied spicetify theme" 
+		echo "[INFO]: Re-opening spotify client" &
+		sleep 2 
+		# ^^^ Above sleep is necessary so spotify-launcher
+		# actually opens. Why does this happen??? Don't exactly know
+		# but discovered while trying do debug the fact that spotify
+		# didn't launch after "spicetify update". It might be some
+		# internal race condition happening at the spotify client app,
+		(spotify-launcher 1> /dev/null 2>&1 &) && echo "[INFO]: Succesfully opened spotify client" 
+		exit 0
+	}
+	echo "[ERROR]: Couldn't re-apply spicetify theme" 
+	exit 1
+}
 
 
