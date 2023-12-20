@@ -1,9 +1,9 @@
 #!/bin/bash
 
-
 #					stheme (set theme)
-# Just a utility to set global themes around all my system (rgb, wallpaper(s), colorschemes, spotify/spicetify theme).
-# I should come up with a better name, the current one is pretty damm boring.
+# Just a utility to set global themes around all my system (rgb, wallpaper(s), colorschemes, 
+# and other programs). I should come up with a better name, the current one is 
+# pretty damm boring.
 #
 # IMPORTANT NOTES:
 #  	- This only works with X (yeah, don't plan to support Wayland or any other(for now..))
@@ -26,13 +26,18 @@
 #		- Make it so that if no ~/.fegbg was found then use colors
 #		from pywal colorscheme to generate background on every X
 #		screen
+#		- Make it so every dependency here is not a dependency at
+#		all (excepy pywal and maybe feh) so users can opt in or out
+#		cool features (
 #		
 # DEPENDENCIES:
-# 	
+# 
 # 	- pywal
 # 	- feh
 # 	- openrgb
 # 	- swo (sync pywal and openrgb)
+# 	- spicetify (for spicewal integration)
+# 		- https://github.com/samu22cr/spicewal
 #
 #
 # USAGE EXAMPLE:
@@ -80,9 +85,6 @@ type swo > /dev/null || {
 	echo "Check for screen numbers with \"xrandr --listmonitors\""
 	exit 0
 }
-
-
-
 
 wal -n -i "$1"  -o swo &
 feh --bg-fill "$@" && echo "[INFO]: Succesfully set wallpaper(s)"
