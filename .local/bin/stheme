@@ -38,6 +38,7 @@
 # 	- swo (sync pywal and openrgb)
 # 	- spicetify (for spicewal integration)
 # 		- https://github.com/samu22cr/spicewal
+# 	- pywalfox
 #
 #
 # USAGE EXAMPLE:
@@ -87,12 +88,18 @@ type swo > /dev/null || {
 }
 
 wal -n -i "$1"  -o swo &
-feh --bg-fill "$@" && echo "[INFO]: Succesfully set wallpaper(s)"
-swo && echo "[INFO]: Succesfully synced pywal & openrgb"
+feh --bg-fill "$@" && echo "[INFO]: Successfully set wallpaper(s)"
+swo && echo "[INFO]: Successfully synced pywal & openrgb"
+
+type pywalfox > /dev/null && {
+	echo "[INFO]: Applying theme to firefox (via pywalfox)" 
+	pywalfox update || echo "[ERROR]: Error while theming firefox (via pywalfox)" 
+	echo "[INFO]: Successfully themed firefox (via pywalfox)" 
+}
 
 type spicetify > /dev/null && {
 	spicetify apply && {
-		echo "[INFO]: Succesfully re-applied spicetify theme" 
+		echo "[INFO]: Successfully re-applied spicetify theme" 
 		echo "[INFO]: Re-opening spotify client" &
 		sleep 2 
 		# ^^^ Above sleep is necessary so spotify-launcher
@@ -100,7 +107,7 @@ type spicetify > /dev/null && {
 		# but discovered while trying do debug the fact that spotify
 		# didn't launch after "spicetify update". It might be some
 		# internal race condition happening at the spotify client app,
-		(spotify-launcher 1> /dev/null 2>&1 &) && echo "[INFO]: Succesfully opened spotify client" 
+		(spotify-launcher 1> /dev/null 2>&1 &) && echo "[INFO]: Successfully opened spotify client" 
 		exit 0
 	}
 	echo "[ERROR]: Couldn't re-apply spicetify theme" 
