@@ -16,6 +16,7 @@
 # CURRENT STATE AND FUTURE FEATURES:
 #	- Don't plan to add features right now, but when I decide to add features I will 
 #	probably add...
+#		- Make a TUI for these and a more sophisticated CLI tool (in Rust || C || C++)
 #		- Fix error when bad args are passed
 #		- More fine grained contro over screen-to-wallpaper mapping (should probably 
 #		do some more hackerman argument parsing)
@@ -37,6 +38,7 @@
 # 	- openrgb
 # 	- swo (sync pywal and openrgb)
 # 	- spicetify (for spicewal integration)
+# 		- NOT currently supported  (commented)
 # 		- https://github.com/samu22cr/spicewal
 # 	- pywalfox
 #
@@ -97,6 +99,7 @@ type pywalfox > /dev/null && {
 	echo "[INFO]: Successfully themed firefox (via pywalfox)" 
 }
 
+# Commented cause now im using spotify-tui
 type spicetify > /dev/null && {
 	spicetify apply && {
 		echo "[INFO]: Successfully re-applied spicetify theme" 
