@@ -180,17 +180,17 @@ mode "resize" {
 ## Power Management (PM)
 ##
 ## Confirmation on any power management action is case insensitive
-bindsym $mod+Shift+p mode "$mode_pm"
-set $mode_pm Power Management: (p)oweroff, (r)eboot, (s)uspend, (h)ibernate, (z)hybrid-sleep
-mode "$mode_pm" {
-        bindsym p      exec systemctl poweroff 
-        bindsym r      exec systemctl reboot
-        bindsym s      exec systemctl suspend; mode "default"
-        bindsym h      exec systemctl hibernate; mode "default"
-        bindsym z      exec systemctl hybrid-sleep; mode "default"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
+#bindsym $mod+Shift+p mode "$mode_pm"
+#set $mode_pm Power Management: (p)oweroff, (r)eboot, (s)uspend, (h)ibernate, (z)hybrid-sleep
+#mode "$mode_pm" {
+        #bindsym p      exec systemctl poweroff 
+        #bindsym r      exec systemctl reboot
+        #bindsym s      exec systemctl suspend; mode "default"
+        #bindsym h      exec systemctl hibernate; mode "default"
+        #bindsym z      exec systemctl hybrid-sleep; mode "default"
+        #bindsym Return mode "default"
+        #bindsym Escape mode "default"
+#}
 
 ##
 ## Gaps
@@ -355,7 +355,7 @@ bindsym $mod+$quick_access_key+d exec discord
 ##   				  	       	 ##
 ###################################################
 ###################################################
-#assign [class="firefox"] $ws2
+assign [class="firefox"] $ws1
 assign [class="Spotify"] $ws10
 assign [class="discord"] $ws9
 
@@ -369,9 +369,11 @@ assign [class="discord"] $ws9
 workspace $ws1 output DP-0
 workspace $ws2 output DP-0
 workspace $ws3 output DP-0
-workspace $ws4 output DP-0
-workspace $ws5 output DP-0
-workspace $ws6 output DP-3
+
+workspace $ws4 output HDMI-0
+workspace $ws5 output HDMI-0
+workspace $ws6 output HDMI-0
+
 workspace $ws7 output DP-3
 workspace $ws8 output DP-3
 workspace $ws9 output DP-3
@@ -462,6 +464,15 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+###########################################################
+###########################################################
+##						  	 ##
+##	              Mouse Behavior 			 ##
+##						  	 ##
+###########################################################
+###########################################################
+focus_follows_mouse no
 
 ###########################################################
 ###########################################################
