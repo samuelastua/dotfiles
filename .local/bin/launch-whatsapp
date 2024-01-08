@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd ~/.local/share/applications
+gtk-launch brave-whatsapp.desktop
+
+

@@ -344,8 +344,20 @@ mode "$mode_gaps_left" {
 ####################################
 set $quick_access_key Shift
 bindsym $mod+$quick_access_key+s exec spotify-launcher
-bindsym $mod+$quick_access_key+w exec firefox
+bindsym $mod+$quick_access_key+f exec firefox
+bindsym $mod+$quick_access_key+b exec brave
+bindsym $mod+$quick_access_key+w exec launch-whatsapp
 bindsym $mod+$quick_access_key+d exec discord
+bindsym $mod+$quick_access_key+e exec Thunar
+bindsym $mod+$quick_access_key+F11 exec pavucontrol
+bindsym $mod+$quick_access_key+F12 exec alacritty --class pulsemixer --title pulsemixer -e bash -ic "pulsemixer"
+
+#bindsym $mod+$quick_access_key+F12 exec alacritty --class pulsemixer --title pulsemixer -e bash -ic "pulsemixer"
+
+for_window [class="crx_hnpfjngllnobngcgfapefoaidbinmjnm"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Thunar"] floating enable
+for_window [class="pulsemixer"] floating enable
 
 
 ###################################################
@@ -358,6 +370,17 @@ bindsym $mod+$quick_access_key+d exec discord
 assign [class="firefox"] $ws1
 assign [class="Spotify"] $ws10
 assign [class="discord"] $ws9
+assign [class="crx_hnpfjngllnobngcgfapefoaidbinmjnm" instance="Brave-browser"] $ws8
+assign [class="whatsapp"] $ws8
+assign [class="WhatsApp Web"] $ws8
+assign [class="WhatsApp"] $ws8
+
+for_window [instance="Brave-browser"] move container to workspace8;
+for_window [instance="Brave-browser"] move container to workspace8;
+for_window [instance="Brave-browser"] move container to workspace8;
+for_window [instance="Brave-browser"] move container to workspace8;
+for_window [instance="Brave-browser"] move container to workspace8;
+
 
 ###################################################
 ###################################################
@@ -449,8 +472,7 @@ force_display_urgency_hint 800 ms
 # ^^^ defaults to 500 ms
 
 
-
-###########################################################
+########################################################### 
 ###########################################################
 ##						  	 ##
 ##	              Audio Controls 			 ##
@@ -458,12 +480,38 @@ force_display_urgency_hint 800 ms
 ###########################################################
 ###########################################################
 
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+# Use pulsemixer to control audio volume (both input and output)
+bindsym $mod+equal exec --no-startup-id pulsemixer --change-volume +10
+bindsym $mod+minus exec --no-startup-id pulsemixer --change-volume -10
+#bindsym --whole-window button9 exec --no-startup-id pulsemixer --change-volume +10
+#bindsym --whole-window button8 exec --no-startup-id pulsemixer --change-volume -10
+#bindsym --whole-window button2 exec --no-startup-id pulsemixer --toggle-mute
+bindsym $mod+BackSpace exec --no-startup-id pulsemixer --toggle-mute
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +10
+bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -10
+bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+#bindsym $mod+i exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Use playerctl to control PMRIS compatible audio players
+exec --no-startup-id playerctld daemon
+bindsym $mod+p exec --no-startup-id playerctl play-pause
+bindsym $mod+F9 exec --no-startup-id toggle-playerctl-shuffle
+bindsym $mod+F10 exec --no-startup-id change-playerctl-loop
+bindsym $mod+bracketright exec --no-startup-id playerctl next
+bindsym $mod+bracketleft exec --no-startup-id playerctl previous
+bindsym $mod+apostrophe exec --no-startup-id playerctl position 15+
+bindsym $mod+semicolon exec --no-startup-id playerctl position 15-
+bindsym $mod+slash exec --no-startup-id playerctl volume 0.1+
+bindsym $mod+period exec --no-startup-id playerctl volume 0.1-
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+
+#bindsym $mod+bracketright exec --no-startup-id pulsemixer --change-volume +10
+#bindsym $mod+bracketleft exec --no-startup-id pulsemixer --change-volume -10
+
 
 ###########################################################
 ###########################################################
