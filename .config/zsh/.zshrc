@@ -113,6 +113,9 @@ source $ZSH/oh-my-zsh.sh
 # My pre-oh-my-zsh conf --------------------------
 #
 # aliases
+
+setopt completealiases
+
 alias dot='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias c=clear
 alias x=exit 
