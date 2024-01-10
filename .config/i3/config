@@ -349,8 +349,8 @@ bindsym $mod+$quick_access_key+b exec brave
 bindsym $mod+$quick_access_key+w exec launch-whatsapp
 bindsym $mod+$quick_access_key+d exec discord
 bindsym $mod+$quick_access_key+e exec Thunar
-bindsym $mod+$quick_access_key+F11 exec pavucontrol
-bindsym $mod+$quick_access_key+F12 exec alacritty --class pulsemixer --title pulsemixer -e bash -ic "pulsemixer"
+bindsym $mod+$quick_access_key+F8 exec toggle-screenkey
+bindsym $mod+$quick_access_key+F12 exec alacritty --class pulsemixer --title pulsemixer -e zsh -ic "pulsemixer"
 
 #bindsym $mod+$quick_access_key+F12 exec alacritty --class pulsemixer --title pulsemixer -e bash -ic "pulsemixer"
 
@@ -389,18 +389,20 @@ for_window [instance="Brave-browser"] move container to workspace8;
 ##   				  	       	 ##
 ###################################################
 ###################################################
+#
 workspace $ws1 output DP-0
 workspace $ws2 output DP-0
 workspace $ws3 output DP-0
 
-workspace $ws4 output HDMI-0
-workspace $ws5 output HDMI-0
-workspace $ws6 output HDMI-0
-
+workspace $ws4 output DP-3
+workspace $ws5 output DP-3
+workspace $ws6 output DP-3
 workspace $ws7 output DP-3
-workspace $ws8 output DP-3
-workspace $ws9 output DP-3
-workspace $ws10 output DP-3
+
+workspace $ws8 output HDMI-0
+workspace $ws9 output HDMI-0
+workspace $ws10 output HDMI-0
+
 
 #####################################################
 #####################################################
@@ -433,7 +435,7 @@ title_align center
 default_border pixel 
 #default_border none
 
-#default_floating_border pixel
+default_floating_border pixel
 # shows borders only if there is more than one container
 # on a workspace && there are no gaps set (gap size == 0)
 hide_edge_borders smart_no_gaps
@@ -445,6 +447,7 @@ smart_borders no_gaps
 #
 gaps inner 15
 gaps outer 5
+
 # no gaps show when only one 1 window/split container on workspace
 smart_gaps on
 
@@ -578,10 +581,12 @@ client.background       $primary
 ##						  	 ##
 ###########################################################
 ###########################################################
+# set $dmenu-font "Hack:pixelsize=11:antialias=true:autohint=true"
+# bindsym $mod+d exec --no-startup-id dmenu_run -b -i -fn "$dmenu-font" -nb "$secondary" -nf "$text-secondary" -sb "$primary" -sf "$text-primary"
+bindsym $mod+d exec --no-startup-id "rofi -show combi 
 
-# start dmenu (a program launcher)
-set $dmenu-font "Hack:pixelsize=11:antialias=true:autohint=true"
-bindsym $mod+d exec --no-startup-id dmenu_run -b -i -fn "$dmenu-font" -nb "$secondary" -nf "$text-secondary" -sb "$primary" -sf "$text-primary"
+# bindsym $mod+d exec --no-startup-id rofi
+
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
@@ -605,9 +610,9 @@ bindsym $mod+d exec --no-startup-id dmenu_run -b -i -fn "$dmenu-font" -nb "$seco
 exec_always --no-startup-id ~/.config/polybar/launch
 
 
-#
-# i3 status (not cool)
-#
+
+#i3 status (not cool)
+
 #bar {
         #status_command i3status
 	#font pango:Hack 11
