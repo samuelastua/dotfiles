@@ -14,16 +14,16 @@ COLOR6=$(xrdb -query | grep "color6"  | head -n 1 | cut -f 2)
 # COLOR8=$(xrdb -query | grep "color8"  | head -n 1 | cut -f 2)
 
 # for blur add:
-# 		-B sigma 
+# 		-B sigma \
 # but not using it cause 
 # screen can be unblured with image processing 
-# alorithms and therefore it's insecure
+# algorithms and therefore it's insecure
 #
 # for color add: 
 #		--color="${COLOR0}" \
 #
 # for image add: 
-#		--image ~/media/solarized/pewpewpew.png \
+#		--image /path/to/image.png \
 #		--scale \
 #
 # xss-lock --transfer-sleep-lock -- i3lock --nofork
