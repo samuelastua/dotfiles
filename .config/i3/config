@@ -134,8 +134,9 @@ bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+x exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+x exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 
 
@@ -344,6 +345,9 @@ mode "$mode_gaps_left" {
 ####################################
 set $quick_access_key Shift
 
+# System
+bindsym $mod+$quick_access_key+x exec power-manager
+
 # Programs
 bindsym $mod+$quick_access_key+m exec spotify-launcher
 bindsym $mod+$quick_access_key+f exec firefox
@@ -353,12 +357,10 @@ bindsym $mod+$quick_access_key+d exec discord
 bindsym $mod+$quick_access_key+e exec Thunar
 
 # Screen
-
 set $screenshots_dir ~/pictures/screenshots
 bindsym $mod+$quick_access_key+z exec "flameshot gui -c -p ~/pictures/screenshots"
 bindsym $mod+$quick_access_key+s exec "flameshot gui"
 bindsym $mod+$quick_access_key+Print exec "flameshot full -p $screenshots_dir; thunar $screenshots_dir"
-
 bindsym $mod+$quick_access_key+F7 exec --no-startup-id toggle-screenkey
 bindsym $mod+$quick_access_key+F8 exec --no-startup-id lockscreen
 

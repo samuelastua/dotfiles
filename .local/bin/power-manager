@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# PENDING:
+#	Add sleep/hibernate options
+
+opts="Exit i3|Shutdown"
+
+selected=$(echo $opts | rofi \
+	-dmenu \
+	-i \
+	-sep "|" \
+	-p "Power Management" \
+	/)
+
+confirm_opts="Hell yeah|Nah"
+prompt_confirmation() {
+	rs=$(echo $confirm_opts | rofi \
+		-dmenu \
+		-i \
+		-p "Are you sure?" \
+		-sep "|" \
+	/)
+	# no ternary???
+	if [ "$rs" == "Hell yeah" ]; then
+		return 1
+	else
+		return 0
+	fi
+
+}
+
+
+case $selected in 
+	"Exit i3") 
+		$(prompt_confirmation)
+		rs=$?
+		if [ $rs -eq 1 ]; then
+		  echo "exiting i3...";
+		  i3-msg exit
+		  exit 0
+		fi
+		;;
+	"Shutdown") 
+		$(prompt_confirmation)
+		rs=$?
+		if [ $rs -eq 1 ]; then
+			echo "shutting down all...";
+			i3-msg exit ; shutdown now
+		fi
+		  echo "NOT shutting down all...";
+		;;
+esac
+
