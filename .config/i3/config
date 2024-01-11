@@ -343,25 +343,34 @@ mode "$mode_gaps_left" {
 ####################################
 ####################################
 set $quick_access_key Shift
-bindsym $mod+$quick_access_key+s exec spotify-launcher
+
+# Programs
+bindsym $mod+$quick_access_key+m exec spotify-launcher
 bindsym $mod+$quick_access_key+f exec firefox
 bindsym $mod+$quick_access_key+b exec brave
 bindsym $mod+$quick_access_key+w exec launch-whatsapp
 bindsym $mod+$quick_access_key+d exec discord
 bindsym $mod+$quick_access_key+e exec Thunar
 
+# Screen
+
+set $screenshots_dir ~/pictures/screenshots
+bindsym $mod+$quick_access_key+z exec "flameshot gui -c -p ~/pictures/screenshots"
+bindsym $mod+$quick_access_key+s exec "flameshot gui"
+bindsym $mod+$quick_access_key+Print exec "flameshot full -p $screenshots_dir; thunar $screenshots_dir"
+
 bindsym $mod+$quick_access_key+F7 exec --no-startup-id toggle-screenkey
 bindsym $mod+$quick_access_key+F8 exec --no-startup-id lockscreen
 
+# Audio
 bindsym $mod+$quick_access_key+F11 exec pavucontrol
 bindsym $mod+$quick_access_key+F12 exec --no-startup-id alacritty --class pulsemixer --title pulsemixer -e zsh -ic "pulsemixer"
 
-#bindsym $mod+$quick_access_key+F12 exec alacritty --class pulsemixer --title pulsemixer -e bash -ic "pulsemixer"
 
-for_window [class="Xscreensaver-settings"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Thunar"] floating enable
 for_window [class="pulsemixer"] floating enable
+for_window [class="Sxiv"] floating enable
 
 
 ###################################################
