@@ -1,0 +1,62 @@
+#!/bin/bash
+#
+#		i3lock-clolor config
+#
+# Commented out unused variables for performance reasons
+COLOR0=$(xrdb -query | grep "color0"  | head -n 1 | cut -f 2)
+COLOR1=$(xrdb -query | grep "color1"  | head -n 1 | cut -f 2)
+COLOR2=$(xrdb -query | grep "color2"  | head -n 1 | cut -f 2)
+COLOR3=$(xrdb -query | grep "color3"  | head -n 1 | cut -f 2)
+# COLOR4=$(xrdb -query | grep "color4"  | head -n 1 | cut -f 2)
+# COLOR5=$(xrdb -query | grep "color5"  | head -n 1 | cut -f 2)
+COLOR6=$(xrdb -query | grep "color6"  | head -n 1 | cut -f 2)
+# COLOR7=$(xrdb -query | grep "color7"  | head -n 1 | cut -f 2)
+# COLOR8=$(xrdb -query | grep "color8"  | head -n 1 | cut -f 2)
+
+# for blur add:
+# 		-B sigma 
+# but not using it cause 
+# screen can be unblured with image processing 
+# alorithms and therefore it's insecure
+#
+# for color add: 
+#		--color="${COLOR0}" \
+#
+# for image add: 
+#		--image ~/media/solarized/pewpewpew.png \
+#		--scale \
+#
+# xss-lock --transfer-sleep-lock -- i3lock --nofork
+i3lock 	\
+	--nofork \
+	--indicator \
+	-S 1  \
+	-p win \
+	--color="${COLOR0}" \
+	--ring-color="${COLOR1}AA" \
+	--inside-color="${COLOR1}33" \
+	--ringver-color="${COLOR3}AA" \
+	--insidever-color="${COLOR3}33" \
+	--ringwrong-color="${COLOR6}AA" \
+	--insidewrong-color="${COLOR6}33" \
+	--line-uses-inside \
+	--keyhl-color="${COLOR2}AA" \
+	--bshl-color="${COLOR6}AA" \
+	--separator-color="00000000" \
+	--wrong-color="${COLOR6}77" \
+	--verif-color="${COLOR3}77" \
+	--modif-color="${COLOR1}77" \
+	--layout-color="${COLOR1}77" \
+	--time-color="${COLOR1}FF" \
+	--date-color="${COLOR1}FF" \
+	--verif-text="" \
+	--wrong-text="" \
+	--noinput-text="-" \
+	--lock-text="" \
+        --lockfailed-text="" \
+	--pass-media-keys \
+	--pass-screen-keys \
+	--pass-power-keys \
+	--pass-volume-keys \
+	--custom-key-commands \
+	/
