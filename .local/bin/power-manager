@@ -12,7 +12,7 @@ selected=$(echo $opts | rofi \
 	-p "Power Management" \
 	/)
 
-confirm_opts="Hell yeah|Nah"
+confirm_opts="Nah|Hell yeah"
 prompt_confirmation() {
 	rs=$(echo $confirm_opts | rofi \
 		-dmenu \
