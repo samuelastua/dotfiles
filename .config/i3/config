@@ -131,7 +131,7 @@ bindsym $mod+Shift+9 move container to workspace number $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+y reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
@@ -346,7 +346,12 @@ mode "$mode_gaps_left" {
 set $quick_access_key Shift
 
 # System
-bindsym $mod+$quick_access_key+x exec power-manager
+bindsym $mod+$quick_access_key+F5 exec power-manager
+bindsym $mod+$quick_access_key+x exec copyq toggle
+
+#bindsym $mod+$quick_access_key+y exec "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard)"
+
+bindsym --whole-window $mod+button3 exec copyq menu
 
 # Programs
 bindsym $mod+$quick_access_key+m exec spotify-launcher
@@ -373,6 +378,7 @@ for_window [class="Pavucontrol"] floating enable
 for_window [class="Thunar"] floating enable
 for_window [class="pulsemixer"] floating enable
 for_window [class="Sxiv"] floating enable
+for_window [class="copyq"] floating enable
 
 
 ###################################################
@@ -382,7 +388,7 @@ for_window [class="Sxiv"] floating enable
 ##   				  	       	 ##
 ###################################################
 ###################################################
-assign [class="firefox"] $ws4
+assign [class="firefox"] $ws1
 assign [class="Spotify"] $ws10
 assign [class="discord"] $ws9
 assign [class="crx_hnpfjngllnobngcgfapefoaidbinmjnm" instance="Brave-browser"] $ws8
@@ -405,14 +411,14 @@ for_window [instance="Brave-browser"] move container to workspace8;
 ###################################################
 ###################################################
 #
-workspace $ws1 output DP-1
-workspace $ws2 output DP-1
-workspace $ws3 output DP-1
+workspace $ws1 output DP-2
+workspace $ws2 output DP-2
+workspace $ws3 output DP-2
 
-workspace $ws4 output DP-2
-workspace $ws5 output DP-2
-workspace $ws6 output DP-2
-workspace $ws7 output DP-2
+workspace $ws4 output DP-1
+workspace $ws5 output DP-1
+workspace $ws6 output DP-1
+workspace $ws7 output DP-1
 
 workspace $ws8 output HDMI-0
 workspace $ws9 output HDMI-0
