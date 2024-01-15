@@ -1,5 +1,0 @@
-#!/bin/bash
-
-output=$(playerctl shuffle)
-[ "$output" = "On" ] && playerctl shuffle Off && exit
-playerctl shuffle On 
