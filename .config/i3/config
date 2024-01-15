@@ -345,13 +345,13 @@ mode "$mode_gaps_left" {
 ####################################
 set $quick_access_key Shift
 
-# System
-bindsym $mod+$quick_access_key+F5 exec power-manager
-bindsym $mod+$quick_access_key+x exec copyq toggle
+# Syste
+bindsym $mod+F4 exec power-manager
+bindsym $mod+$quick_access_key+c exec copyq toggle
 
 #bindsym $mod+$quick_access_key+y exec "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard)"
 
-bindsym --whole-window $mod+button2 exec copyq menu
+bindsym --whole-window $mod+button3 exec copyq menu
 
 # Programs
 bindsym $mod+$quick_access_key+m exec spotify-launcher
@@ -365,13 +365,13 @@ bindsym $mod+$quick_access_key+e exec Thunar
 set $screenshots_dir ~/pictures/screenshots
 bindsym $mod+$quick_access_key+z exec "flameshot gui -c -p ~/pictures/screenshots"
 bindsym $mod+$quick_access_key+s exec "flameshot gui"
-bindsym $mod+$quick_access_key+Print exec "flameshot full -p $screenshots_dir; thunar $screenshots_dir"
-bindsym $mod+$quick_access_key+F7 exec --no-startup-id toggle-screenkey
-bindsym $mod+$quick_access_key+F8 exec --no-startup-id lockscreen
+bindsym $mod+Print exec "flameshot full -p $screenshots_dir; thunar $screenshots_dir"
+bindsym $mod+F7 exec --no-startup-id toggle-screenkey
+bindsym $mod+F8 exec --no-startup-id lockscreen
 
 # Audio
-bindsym $mod+$quick_access_key+F11 exec pavucontrol
-bindsym $mod+$quick_access_key+F12 exec --no-startup-id alacritty --class pulsemixer --title pulsemixer -e zsh -ic "pulsemixer"
+bindsym $mod+F11 exec pavucontrol
+bindsym $mod+F12 exec --no-startup-id alacritty --class pulsemixer --title pulsemixer -e zsh -ic "pulsemixer"
 
 
 for_window [class="Pavucontrol"] floating enable
@@ -388,7 +388,7 @@ for_window [class="copyq"] floating enable
 ##   				  	       	 ##
 ###################################################
 ###################################################
-assign [class="firefox"] $ws1
+# assign [class="firefox"] $ws1
 assign [class="Spotify"] $ws10
 assign [class="discord"] $ws9
 assign [class="crx_hnpfjngllnobngcgfapefoaidbinmjnm" instance="Brave-browser"] $ws8
@@ -562,7 +562,7 @@ focus_follows_mouse no
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack 11
+font pango:Hack 20
 #font pango:DejaVu Sans Mono 11
 #font pango:monospace 12
 #font pango:monospace 8 <<<--- default font conf
@@ -619,6 +619,10 @@ bindsym $mod+d exec --no-startup-id "rofi -show combi
 ###########################################################
 ###########################################################
 exec_always --no-startup-id launch-notif-daemon
+bindsym $mod+F6 exec --no-startup-id toggle-disable-notifications
+bindsym $mod+F5 exec --no-startup-id dunstctl action
+bindsym $mod+n exec --no-startup-id dunstctl history-pop
+bindsym $mod+$quick_access_key+n exec --no-startup-id dunstctl close
 
 
 # A more modern dmenu replacement is rofi:
@@ -639,7 +643,7 @@ exec_always --no-startup-id launch-notif-daemon
 
 #
 # Polybar
-#
+
 exec_always --no-startup-id ~/.config/polybar/launch
 
 

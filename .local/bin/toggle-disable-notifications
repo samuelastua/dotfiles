@@ -1,0 +1,25 @@
+#!/bin/bash
+
+notis_paused=$(dunstctl is-paused)
+if [ $notis_paused == "true" ]; 
+then
+	notis_icon="notifications-applet-symbolic"
+	notis_summary="Notifications ENABLED"
+	dunstctl set-paused false
+	notify-send "$notis_summary" \
+		--app-name="Notifications daemon" \
+		-r "90909" \
+		--icon="$notis_icon";
+else 
+	notis_icon="notification-disabled-symbolic"
+	notis_summary="Notifications DISABLED"
+	notify-send "$notis_summary" \
+		--app-name="Notifications daemon" \
+		-r "90909" \
+		--icon="$notis_icon";
+	sleep 2s
+	dunstctl set-paused true
+fi
+
+
+
