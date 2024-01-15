@@ -1,8 +1,21 @@
 #!/bin/bash
 
-if  pgrep -x "screenkey" > /dev/null 
+if pgrep -x "screenkey" > /dev/null 
 then
-	pkill screenkey 
-	exit 0
+	# running...
+ 	pkill screenkey 
+ 	notify-send "Killed screenkey" \
+ 		--app-name="Screenkey" \
+ 		-r "321387" \
+ 		--icon "input-keyboard-symbolic";
+ 	exit 0
 fi
-screenkey -s small > /dev/null 
+
+# not running...
+screenkey -s small > /dev/null & disown
+notify-send "Now running screenkey" \
+	--app-name="Screenkey" \
+	-r "321387" \
+	--icon "input-keyboard-symbolic";
+
+

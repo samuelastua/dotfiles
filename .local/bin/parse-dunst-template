@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# getting the freaking colors
+source ~/.cache/wal/colors.sh
+
+actual_conf=~/.config/dunst/dunstrc
+template_conf=~/.config/dunst/dunstrc.template
+tmp_conf=~/.config/dunst/dunstrc.template.tmp
+
+cp $template_conf $tmp_conf
+
+sed -i "s/STHEME_PRIMARY/$color2/g" $tmp_conf
+sed -i "s/STHEME_TEXT_PRIMARY/$color0/g" $tmp_conf
+
+sed -i "s/STHEME_SECONDARY/$color0/g" $tmp_conf
+sed -i "s/STHEME_TEXT_SECONDARY/$color7/g" $tmp_conf
+
+sed -i "s/STHEME_ERROR/$color4/g" $tmp_conf
+sed -i "s/STHEME_TEXT_ERROR/$color0/g" $tmp_conf
+sed -i "s/STHEME_BORDER_ERROR/$color0/g" $tmp_conf
+
+cp $tmp_conf $actual_conf

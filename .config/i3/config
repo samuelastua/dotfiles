@@ -351,7 +351,7 @@ bindsym $mod+$quick_access_key+x exec copyq toggle
 
 #bindsym $mod+$quick_access_key+y exec "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard)"
 
-bindsym --whole-window $mod+button3 exec copyq menu
+bindsym --whole-window $mod+button2 exec copyq menu
 
 # Programs
 bindsym $mod+$quick_access_key+m exec spotify-launcher
@@ -418,8 +418,8 @@ workspace $ws3 output DP-2
 workspace $ws4 output DP-1
 workspace $ws5 output DP-1
 workspace $ws6 output DP-1
-workspace $ws7 output DP-1
 
+workspace $ws7 output HDMI-0
 workspace $ws8 output HDMI-0
 workspace $ws9 output HDMI-0
 workspace $ws10 output HDMI-0
@@ -453,7 +453,7 @@ exec spotify-launcher
 # and title bars are visible in those modes
 title_align center 
 # doesn't show title bar on any window, but shows borders
-default_border pixel 
+default_border pixel 3
 #default_border none
 
 default_floating_border pixel
@@ -461,17 +461,21 @@ default_floating_border pixel
 # on a workspace && there are no gaps set (gap size == 0)
 hide_edge_borders smart_no_gaps
 # if gap size > 0 show borders; else no borders at all
-smart_borders no_gaps
+# smart_borders no_gaps
 
 #
 # GAPS
 #
 gaps inner 15
 gaps outer 5
+gaps top 0
 
 # no gaps show when only one 1 window/split container on workspace
-smart_gaps on
+# smart_gaps on
 
+# inverse_outer only enables outer gaps when there is exactly one
+# window or split container on the workspace.
+smart_gaps inverse_outer
 
 #for_window [class="^.*"] border pixel 2
 ## class                 border  backgr. text    indicator child_border
@@ -486,7 +490,7 @@ mouse_warping none
 # Jumnping back and forth of workspaces using same key
 # used to change the workspace without having to think
 # about where I come from, pretty goddamm useful
-workspace_auto_back_and_forth yes
+
 
 
 # Delay time taken from urgency state (red [<= if default] color around window) to reset after focusing
@@ -505,33 +509,35 @@ force_display_urgency_hint 800 ms
 ###########################################################
 
 # Use pulsemixer to control audio volume (both input and output)
-bindsym $mod+equal exec --no-startup-id pulsemixer --change-volume +10
-bindsym $mod+minus exec --no-startup-id pulsemixer --change-volume -10
-#bindsym --whole-window button9 exec --no-startup-id pulsemixer --change-volume +10
-#bindsym --whole-window button8 exec --no-startup-id pulsemixer --change-volume -10
-#bindsym --whole-window button2 exec --no-startup-id pulsemixer --toggle-mute
-bindsym $mod+BackSpace exec --no-startup-id pulsemixer --toggle-mute
-bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +10
-bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -10
-bindsym XF86AudioMute exec --no-startup-id pulsemixer --toggle-mute
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-#bindsym $mod+i exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym $mod+equal exec --no-startup-id "amc +system-volume"
+bindsym $mod+minus exec --no-startup-id "amc -system-volume"
+# bindsym --whole-window $mod+button9 exec --no-startup-id "amc +system-volume"
+# bindsym --whole-window $mod+button8 exec --no-startup-id "amc -system-volume"
+#
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amc +system-volume"
+bindsym XF86AudioLowerVolume exec --no-startup-id "amc -system-volume"
+bindsym XF86AudioMute exec --no-startup-id "amc toggle-mute-system-volume"
+bindsym $mod+BackSpace exec --no-startup-id "amc toggle-mute-system-volume"
+
+# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# bindsym $mod+i exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use playerctl to control PMRIS compatible audio players
 exec --no-startup-id playerctld daemon
-bindsym $mod+p exec --no-startup-id playerctl play-pause
-bindsym $mod+F9 exec --no-startup-id toggle-playerctl-shuffle
-bindsym $mod+F10 exec --no-startup-id change-playerctl-loop
-bindsym $mod+bracketright exec --no-startup-id playerctl next
-bindsym $mod+bracketleft exec --no-startup-id playerctl previous
-bindsym $mod+apostrophe exec --no-startup-id playerctl position 15+
-bindsym $mod+semicolon exec --no-startup-id playerctl position 15-
-bindsym $mod+slash exec --no-startup-id playerctl volume 0.1+
-bindsym $mod+period exec --no-startup-id playerctl volume 0.1-
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
-bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym $mod+p exec --no-startup-id "amc play-pause-crrnt-player"
+bindsym $mod+Shift+p exec --no-startup-id  "amc shift-player"
+bindsym $mod+F9 exec --no-startup-id "amc toggle-shuffle-player"
+bindsym $mod+F10 exec --no-startup-id "amc change-loop-player" 
+bindsym $mod+bracketright exec --no-startup-id "amc next-track" 
+bindsym $mod+bracketleft exec --no-startup-id "amc prev-track"
+bindsym $mod+apostrophe exec --no-startup-id "amc seek-forward-track"
+bindsym $mod+semicolon exec --no-startup-id "amc seek-backward-track" 
+bindsym $mod+slash exec --no-startup-id "amc +player-volume"
+bindsym $mod+period exec --no-startup-id "amc -player-volume" 
+bindsym XF86AudioPlay exec --no-startup-id "amc play-pause-crrnt-player"
+bindsym XF86AudioNext exec --no-startup-id "amc next-track"
+bindsym XF86AudioPrev exec --no-startup-id "amc prev-track" 
+bindsym XF86AudioStop exec --no-startup-id "amc stop-player" 
 
 #bindsym $mod+bracketright exec --no-startup-id pulsemixer --change-volume +10
 #bindsym $mod+bracketleft exec --no-startup-id pulsemixer --change-volume -10
@@ -602,11 +608,17 @@ client.background       $primary
 ##						  	 ##
 ###########################################################
 ###########################################################
-# set $dmenu-font "Hack:pixelsize=11:antialias=true:autohint=true"
-# bindsym $mod+d exec --no-startup-id dmenu_run -b -i -fn "$dmenu-font" -nb "$secondary" -nf "$text-secondary" -sb "$primary" -sf "$text-primary"
 bindsym $mod+d exec --no-startup-id "rofi -show combi 
 
-# bindsym $mod+d exec --no-startup-id rofi
+
+###########################################################
+###########################################################
+##						  	 ##
+##	              Notis Daemon 			 ##
+##						  	 ##
+###########################################################
+###########################################################
+exec_always --no-startup-id launch-notif-daemon
 
 
 # A more modern dmenu replacement is rofi:
@@ -629,7 +641,6 @@ bindsym $mod+d exec --no-startup-id "rofi -show combi
 # Polybar
 #
 exec_always --no-startup-id ~/.config/polybar/launch
-
 
 
 #i3 status (not cool)

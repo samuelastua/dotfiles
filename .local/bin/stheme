@@ -41,6 +41,7 @@
 # 		- NOT currently supported  (commented)
 # 		- https://github.com/samu22cr/spicewal
 # 	- pywalfox
+# 	- dunst notification server (optional)
 #
 #
 # USAGE EXAMPLE:
@@ -99,7 +100,13 @@ type pywalfox > /dev/null && {
 	echo "[INFO]: Successfully themed firefox (via pywalfox)" 
 }
 
-# Commented cause now im using spotify-tui
+type dunst > /dev/null && {
+	pgrep -x dunst > /dev/null && {
+		parse-dunst-template
+		launch-notif-daemon
+	}
+}
+
 type spicetify > /dev/null && {
 	spicetify apply && {
 		echo "[INFO]: Successfully re-applied spicetify theme" 

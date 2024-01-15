@@ -1,0 +1,265 @@
+#!/bin/bash
+
+#	AMC (Audio and Media Controller)
+# A wrapper for controlling audio and media 
+# Features:
+# 	- notifications
+# 	- other stuff, just read the code
+
+function set_volume_info() {
+	vol_muted=$(pulsemixer --get-mute) 
+	vol_pct=$(pulsemixer --get-volume | cut -f 1 -d " ") 
+	vol_summary="%$vol_pct"
+	if [[ $vol_pct -gt 100 ]]; 
+	then
+		vol_icon="audio-volume-high-symbolic"
+		vol_summary="%$vol_pct, to damm loud!"
+	elif [[ $vol_pct -gt 80 ]]; 
+	then 
+		vol_icon="audio-volume-high-symbolic"
+	elif [[ $vol_pct -gt 20 ]];
+	then
+		vol_icon="audio-volume-medium-symbolic"
+	else
+		vol_icon="audio-volume-low-symbolic"
+	fi
+}
+
+function set_player_volume_info() {
+
+	type bc > /dev/null || {
+		notify-send "\"bc\" must be installed for player volume notifications to work" \
+			--app-name="Audio & Media Controller" \
+			-r "77777" \
+			-u critical \
+			-i arch-error-symbolic ;
+			exit 0
+	}
+
+
+	player_name="$(playerctl metadata --format '{{ playerName }}')"
+	player_vol_pct=$(echo "$(playerctl volume) * 100" | bc | cut -d "." -f 1 | cut -d "," -f 1)
+	if [[ $player_vol_pct -gt 70 ]]; 
+	then 
+		player_vol_icon="audio-volume-high-symbolic"
+	elif [[ $player_vol_pct -gt 20 ]];
+	then
+		player_vol_icon="audio-volume-medium-symbolic"
+	else
+		player_vol_icon="audio-volume-low-symbolic"
+	fi
+}
+
+function set_player_info() {
+	player_status=$(playerctl status)
+	player_name="$(playerctl metadata --format '{{ playerName }}')"
+	player_summary=$(playerctl metadata --format "{{title}} - {{artist}}")
+	case $player_status in
+		"Playing")
+			player_icon="media-playback-pause-symbolic"
+			;;
+		"Paused")
+			player_icon="media-playback-start-symbolic"
+			;;
+		"Stopped")
+			player_icon="media-playback-stop-symbolic"
+			;;
+	esac
+}
+
+
+case $1 in 
+	"+system-volume") 
+		pulsemixer --change-volume +10
+		set_volume_info
+		notify-send "$vol_summary" \
+			--app-name="System Volume" \
+			-r "99999" \
+			-h "int:value:$vol_pct" \
+			--icon "$vol_icon" \
+		;;
+	"-system-volume") 
+		pulsemixer --change-volume -10
+		set_volume_info
+		notify-send "$vol_summary" \
+			--app-name="System Volume" \
+			-r "99999" \
+			--icon "$vol_icon" \
+			-h "int:value:$vol_pct" \
+		;;
+	"toggle-mute-system-volume") 
+		pulsemixer --toggle-mute
+		set_volume_info
+		if [[ $vol_muted -eq 1 ]]; 
+		then
+			vol_icon="audio-volume-muted-symbolic"
+			vol_summary="Muted"
+			notify-send "$vol_summary" \
+				--app-name="System Volume" \
+				-r "99999" \
+				--icon "$vol_icon" \ 
+			exit 0
+		fi
+		notify-send "$vol_summary" \
+			--app-name="System Volume" \
+			-r "99999" \
+			-h "int:value:$vol_pct" \
+			--icon "$vol_icon" \ 
+		;;
+	"play-pause-crrnt-player") 
+			playerctl play-pause
+			set_player_info
+			notify-send \
+				"$player_summary" \
+				--app-name="$player_name" \
+				--icon $player_icon \
+				-r "88888" \
+		;;
+	"stop-player") 
+			playerctl stop
+			set_player_info
+			player_icon="media-playback-stop-symbolic"
+			notify-send \
+				"$player_summary" \
+				--app-name="$player_name" \
+				--icon $player_icon \
+				-r "88888" \
+		;;
+	"shift-player") 
+			playerctld shift
+			set_player_info
+			notify-send \
+				"Now focusing $(playerctl metadata --format '{{uc(playerName)}}')" \
+				--app-name="Audio & Media Controller" \
+				-i focus-windows-symbolic \
+				-r "88888" \
+		;;
+	"toggle-shuffle-player") 
+		player_name=$(playerctl metadata --format "{{playerName}}")
+		player_shuffle=$(playerctl shuffle)
+		case $player_shuffle in
+			"On")
+				# then NOT shuffle anymore
+				player_icon="media-playlist-no-shuffle-symbolic"
+				player_summary="Shuffle OFF for $player_name"
+				playerctl shuffle Off
+				;;
+			"Off")
+				# then turn ON shuffle
+				player_icon="media-playlist-shuffle-symbolic"
+				player_summary="Shuffle ON for $player_name"
+				playerctl shuffle On
+				;;
+		esac
+		notify-send \
+			"$player_summary" \
+			--app-name="Audio & Media Controller" \
+			-i  $player_icon \
+			-r "88888" \
+		;;
+	"change-loop-player") 
+		player_loop=$(playerctl loop)
+		# for some weird reason this below only works
+		# when in each case statement I run the notify-send
+		# cmmnd, and it seems to not work when I set all
+		# variables in the case statements and run the 
+		# notify-send command after the that
+		case $player_loop in
+			"None")
+				playerctl loop Track
+				player_icon=media-playlist-repeat-one-symbolic
+				notify-send \
+					"Track" \
+					--app-name="Audio & Media Controller" \
+					-i  $player_icon \
+					-r "88888" \
+				;;
+			"Track")
+				playerctl loop Playlist ; player_icon=media-playlist-repeat-symbolic
+				notify-send \
+					"Playlist" \
+					--app-name="Audio & Media Controller" \
+					-i  $player_icon \
+					-r "88888" \
+				;;
+			"Playlist")
+				playerctl loop None
+				player_icon=media-playlist-no-repeat-symbolic
+				notify-send \
+					"None" \
+					--app-name="Audio & Media Controller" \
+					-i  $player_icon \
+					-r "88888" \
+				;;
+		esac
+		;;
+	"next-track") 
+		playerctl next
+		player_name="$(playerctl metadata --format '{{ playerName }}')"
+		if [[ "$player_name" == "spotify" ]]; then
+			exit 0;
+		fi
+		player_title="$(playerctl metadata --format '{{ title }}')"
+		notify-send \
+			"Now playing: $player_title" \
+			--app-name="$player_name" \
+			-i  "media-skip-forward-symbolic" \
+			-r "88888" \
+		;;
+
+	"prev-track") 
+		playerctl previous
+		player_name="$(playerctl metadata --format '{{ playerName }}')"
+		if [[ "$player_name" == "spotify" ]]; then
+			exit 0;
+		fi
+		player_title="$(playerctl metadata --format '{{ status }}')"
+		notify-send \
+			"Now playing: $player_title" \
+			--app-name="$player_name" \
+			-i  "media-skip-backward-symbolic" \
+			-r "88888" \
+		;;
+	"seek-forward-track") 
+		player_name="$(playerctl metadata --format '{{ playerName }}')"
+		player_title="$(playerctl metadata --format '{{ trunc(title,14) }}')"
+		playerctl position 10+
+		notify-send \
+			"Forward 10s - $player_title" \
+			--app-name="${player_name^}" \
+			-i  "media-seek-forward-symbolic" \
+			-r "88888" \
+		;;
+	"seek-backward-track") 
+		player_name="$(playerctl metadata --format '{{ playerName }}')"
+		player_title="$(playerctl metadata --format '{{ trunc(title,14) }}')"
+		playerctl position 10-
+		notify-send \
+			"Back 10s - $player_title" \
+			--app-name="${player_name^}" \
+			-i  "media-seek-backward-symbolic" \
+			-r "88888" \
+		;;
+	"+player-volume")
+		playerctl volume 0.1+
+		set_player_volume_info
+		notify-send "%$player_vol_pct" \
+			--app-name="${player_name^} Volume" \
+			-r "99999" \
+			-h "int:value:$player_vol_pct" \
+			--icon "$player_vol_icon" \
+		;;
+	"-player-volume")
+		playerctl volume 0.1-
+		set_player_volume_info
+		notify-send "%$player_vol_pct" \
+			--app-name="${player_name^} Volume" \
+			-r "99999" \
+			-h "int:value:$player_vol_pct" \
+			--icon "$player_vol_icon" \
+		;;
+
+esac
+
+
+
