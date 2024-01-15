@@ -359,7 +359,7 @@ bindsym $mod+$quick_access_key+f exec firefox
 bindsym $mod+$quick_access_key+b exec brave
 bindsym $mod+$quick_access_key+w exec launch-whatsapp
 bindsym $mod+$quick_access_key+d exec discord
-bindsym $mod+$quick_access_key+e exec Thunar
+bindsym $mod+$quick_access_key+e exec alacritty --class lf --title lf -e zsh -ic "lf"
 
 # Screen
 set $screenshots_dir ~/pictures/screenshots
@@ -379,6 +379,7 @@ for_window [class="Thunar"] floating enable
 for_window [class="pulsemixer"] floating enable
 for_window [class="Sxiv"] floating enable
 for_window [class="copyq"] floating enable
+for_window [class="lf"] floating enable
 
 
 ###################################################
