@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# done this way cause dunst needs
+# to be restarted for new conf to apply
+
+pgrep -x dunst > /dev/null && pkill dunst
+dunst & disown
