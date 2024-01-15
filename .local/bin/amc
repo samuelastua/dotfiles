@@ -169,7 +169,7 @@ case $1 in
 				playerctl loop Track
 				player_icon=media-playlist-repeat-one-symbolic
 				notify-send \
-					"Track" \
+					"Loop - Track" \
 					--app-name="Audio & Media Controller" \
 					-i  $player_icon \
 					-r "88888" \
@@ -177,7 +177,7 @@ case $1 in
 			"Track")
 				playerctl loop Playlist ; player_icon=media-playlist-repeat-symbolic
 				notify-send \
-					"Playlist" \
+					"Loop - Playlist" \
 					--app-name="Audio & Media Controller" \
 					-i  $player_icon \
 					-r "88888" \
@@ -186,7 +186,7 @@ case $1 in
 				playerctl loop None
 				player_icon=media-playlist-no-repeat-symbolic
 				notify-send \
-					"None" \
+					"Loop - Disabled" \
 					--app-name="Audio & Media Controller" \
 					-i  $player_icon \
 					-r "88888" \
