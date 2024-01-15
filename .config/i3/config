@@ -345,7 +345,7 @@ mode "$mode_gaps_left" {
 ####################################
 set $quick_access_key Shift
 
-# Syste
+# System
 bindsym $mod+F4 exec power-manager
 bindsym $mod+$quick_access_key+c exec copyq toggle
 
