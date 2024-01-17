@@ -347,7 +347,7 @@ set $quick_access_key Shift
 
 # System
 bindsym $mod+F4 exec power-manager
-bindsym $mod+$quick_access_key+c exec copyq toggle
+bindsym $mod+$quick_access_key+x exec copyq toggle
 
 #bindsym $mod+$quick_access_key+y exec "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard)"
 
@@ -413,18 +413,32 @@ for_window [instance="Brave-browser"] move container to workspace8;
 ###################################################
 ###################################################
 #
-workspace $ws1 output DP-2
-workspace $ws2 output DP-2
-workspace $ws3 output DP-2
+# workspace $ws1 output DP-2
+# workspace $ws2 output DP-2
+# workspace $ws3 output DP-2
+# 
+# workspace $ws4 output DP-1
+# workspace $ws5 output DP-1
+# workspace $ws6 output DP-1
+# 
+# workspace $ws7 output HDMI-0
+# workspace $ws8 output HDMI-0
+# workspace $ws9 output HDMI-0
+# workspace $ws10 output HDMI-0
 
-workspace $ws4 output DP-1
-workspace $ws5 output DP-1
-workspace $ws6 output DP-1
+workspace $ws1 output HDMI-0
+workspace $ws2 output HDMI-0
+workspace $ws3 output HDMI-0
 
-workspace $ws7 output HDMI-0
-workspace $ws8 output HDMI-0
-workspace $ws9 output HDMI-0
-workspace $ws10 output HDMI-0
+workspace $ws4 output DP-2
+workspace $ws5 output DP-2
+workspace $ws6 output DP-2
+
+workspace $ws7 output DP-1
+workspace $ws8 output DP-1
+workspace $ws9 output DP-1
+workspace $ws10 output DP-1
+
 
 
 #####################################################
@@ -564,7 +578,7 @@ focus_follows_mouse no
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack 20
+font pango:Hack 11
 #font pango:DejaVu Sans Mono 11
 #font pango:monospace 12
 #font pango:monospace 8 <<<--- default font conf
@@ -620,7 +634,7 @@ bindsym $mod+d exec --no-startup-id "rofi -show combi
 ##						  	 ##
 ###########################################################
 ###########################################################
-exec_always --no-startup-id launch-notif-daemon
+exec_always --no-startup-id "dunst & disown"
 bindsym $mod+F6 exec --no-startup-id toggle-disable-notifications
 bindsym $mod+F5 exec --no-startup-id dunstctl action
 bindsym $mod+n exec --no-startup-id dunstctl history-pop
