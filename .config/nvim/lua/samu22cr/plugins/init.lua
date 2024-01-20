@@ -14,19 +14,24 @@ return {
     opts = {},
   },
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    'rose-pine/neovim',
+    name = 'rose-pine',
     priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
+    config = function ()
+      require('rose-pine').setup({
+        styles = {
+          transparency = true
+        }
+      })
+      vim.cmd("colorscheme rose-pine")
+    end
+   },
   {
     'nvim-lualine/lualine.nvim',
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'rose-pine',
         component_separators = '|',
         section_separators = '',
       },
@@ -34,3 +39,4 @@ return {
   },
 
 }
+

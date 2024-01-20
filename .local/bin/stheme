@@ -103,7 +103,8 @@ type pywalfox > /dev/null && {
 type dunst > /dev/null && {
 	pgrep -x dunst > /dev/null && {
 		parse-dunst-template
-		launch-notif-daemon
+		pkill dunst
+		dunst &
 	}
 }
 
