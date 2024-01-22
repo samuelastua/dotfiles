@@ -14,6 +14,12 @@ return {
     opts = {},
   },
   {
+    "mbbill/undotree",
+    config = function ()
+      vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+    end
+  },
+  {
     'rose-pine/neovim',
     name = 'rose-pine',
     priority = 1000,

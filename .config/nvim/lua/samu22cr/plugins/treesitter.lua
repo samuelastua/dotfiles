@@ -1,4 +1,3 @@
-
 return  {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -7,8 +6,6 @@ return  {
     },
     build = ':TSUpdate',
     config = function()
-      -- [[ Configure Treesitter ]]
-      -- See `:help nvim-treesitter`
       -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
       vim.defer_fn(function()
         require('nvim-treesitter.configs').setup {
@@ -16,7 +13,7 @@ return  {
           ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
           -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-          auto_install = false,
+          auto_install = true,
           -- Install languages synchronously (only applied to `ensure_installed`)
           sync_install = false,
           -- List of parsers to ignore installing
@@ -46,6 +43,8 @@ return  {
                 ['if'] = '@function.inner',
                 ['ac'] = '@class.outer',
                 ['ic'] = '@class.inner',
+                ["as"] = { query = "@scope", query_group = "locals", desc = "Select around language scope" },
+                ["is"] = { query = "@scope", query_group = "locals", desc = "Select inside language scope" },
               },
             },
             move = {
@@ -71,10 +70,10 @@ return  {
             swap = {
               enable = true,
               swap_next = {
-                ['<leader>a'] = '@parameter.inner',
+                ['<leader>z'] = '@parameter.inner',
               },
               swap_previous = {
-                ['<leader>A'] = '@parameter.inner',
+                ['<leader>Z'] = '@parameter.inner',
               },
             },
           },

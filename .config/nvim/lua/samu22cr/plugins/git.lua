@@ -21,6 +21,7 @@ return {
         --changedelete = { text = '~' },
         -- untracked    = { text = '┆' },
       },
+
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
