@@ -126,10 +126,10 @@ alias c3="clear && tree"
 alias l="ls -l"
 alias la="ls -la"
 alias p="sudo pacman"
-alias v="vim"
-alias nv="nvim"
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+# alias v="vim"
+# alias nv="nvim"
 
 
 # vi mode

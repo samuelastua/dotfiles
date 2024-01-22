@@ -14,9 +14,7 @@ return {
         end,
       },
     },
-  config = function (plugin) 
-        -- [[ Configure Telescope ]]
-        -- See `:help telescope` and `:help telescope.setup()`
+  config = function (plugin)
         require('telescope').setup {
           defaults = {
             mappings = {
