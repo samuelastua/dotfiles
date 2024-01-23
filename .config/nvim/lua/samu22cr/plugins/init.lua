@@ -1,8 +1,13 @@
-
-
 return {
   -- automatically adjusts 'shiftwidth' and 'expandtab'
+  -- dont like this plugin but keeping here just in case
   'tpope/vim-sleuth',
+  --  ^^^
+  "eandrju/cellular-automaton.nvim",
+  {
+    "folke/zen-mode.nvim",
+    opts = { }
+  },
   {
     'numToStr/Comment.nvim',
     opts = {},
@@ -15,7 +20,7 @@ return {
   },
   {
     "mbbill/undotree",
-    config = function ()
+    config = function()
       vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
     end
   },
@@ -23,7 +28,7 @@ return {
     'rose-pine/neovim',
     name = 'rose-pine',
     priority = 1000,
-    config = function ()
+    config = function()
       require('rose-pine').setup({
         styles = {
           transparency = true,
@@ -31,7 +36,7 @@ return {
       })
       vim.cmd("colorscheme rose-pine")
     end
-   },
+  },
   {
     'nvim-lualine/lualine.nvim',
     opts = {
@@ -43,6 +48,4 @@ return {
       },
     },
   },
-
 }
-

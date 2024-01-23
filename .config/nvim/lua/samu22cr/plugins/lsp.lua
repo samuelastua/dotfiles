@@ -1,5 +1,14 @@
 return {
   {
+    "windwp/nvim-ts-autotag",
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter'
+    },
+    config = function ()
+      require("nvim-ts-autotag").setup()
+    end
+  },
+  {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
     opts = {
@@ -55,8 +64,14 @@ return {
 
         -- Create a command `:Format` local to the LSP buffer
         vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-          vim.lsp.buf.format()
+          vim.lsp.buf.format({
+            formatting_options = {
+              tabSize = vim.o.shiftwidth
+            }
+          })
+		  vim.print(vim.o.shiftwidth)
         end, { desc = 'Format current buffer with LSP' })
+        nmap('<leader>f', ":Format<CR>", '[W]orkspace [R]emove Folder')
 
         -- To instead override globally
 
@@ -118,6 +133,7 @@ return {
             on_attach = on_attach,
             settings = servers[server_name],
             filetypes = (servers[server_name] or {}).filetypes,
+            on_init
           }
         end,
       }
