@@ -20,3 +20,4 @@ sed -i "s/STHEME_TEXT_ERROR/$color0/g" $tmp_conf
 sed -i "s/STHEME_BORDER_ERROR/$color0/g" $tmp_conf
 
 cp $tmp_conf $actual_conf
+rm $tmp_conf
