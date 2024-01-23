@@ -37,3 +37,8 @@ vim.keymap.set("n", "<leader>Y", [["+Y]]) -- yank current line to CLIPBOARD sele
 
 vim.keymap.set({"n", "v"}, "<leader>P", [["+p]]) -- put CLIPBOARD selection before cursor
 vim.keymap.set("n", "<leader>P", [["+P]]) -- put CLIPBOARD selectio after cursor
+
+-- browsing netrm like a chad
+vim.keymap.set("n", "<leader>n", ":Ex<CR>")
+vim.keymap.set("n", "<leader>m", ":Vex<CR>")
+vim.keymap.set("n", "<leader>M", ":Hex<CR>")
