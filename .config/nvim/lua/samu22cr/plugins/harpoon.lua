@@ -25,10 +25,12 @@ return {
     -- end)
     --
 
-    vim.keymap.set("n", "<C-a>", function() harpoon:list():select(1) end)
-    vim.keymap.set("n", "<C-s>", function() harpoon:list():select(2) end)
-    vim.keymap.set("n", "<C-d>", function() harpoon:list():select(3) end)
-    vim.keymap.set("n", "<C-f>", function() harpoon:list():select(4) end)
+    -- removed cause this bindings are too awful and dont really need
+    -- the bindings
+    -- vim.keymap.set("n", "<C-1>", function() harpoon:list():select(1) end)
+    -- vim.keymap.set("n", "<C-2>", function() harpoon:list():select(2) end)
+    -- vim.keymap.set("n", "<C-3>", function() harpoon:list():select(3) end)
+    -- vim.keymap.set("n", "<C-4>", function() harpoon:list():select(4) end)
 
     -- Toggle previous & next buffers stored within Harpoon list
     vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
