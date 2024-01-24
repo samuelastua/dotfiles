@@ -36,6 +36,7 @@ return  {
               enable = true,
               lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
               keymaps = {
+                --  this bindings are for visual mode by default
                 -- You can use the capture groups defined in textobjects.scm 
                 ['aa'] = '@parameter.outer',
                 ['ia'] = '@parameter.inner',
