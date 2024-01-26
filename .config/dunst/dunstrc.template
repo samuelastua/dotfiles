@@ -116,11 +116,7 @@
     #  * urgency_ascending: sort by urgency (low then normal then critical)
     #  * urgency_descending: sort by urgency (critical then normal then low)
     #  * update: sort by update (most recent always at the top)
-<<<<<<< HEAD
-    sort = update
-=======
     # sort = update
->>>>>>> 087c049 (adding tmux conf)
 
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -335,10 +331,6 @@
     frame_color = "STHEME_PRIMARY"
     highlight = "STHEME_PRIMARY"
     timeout = 5
-<<<<<<< HEAD
-    override_pause_level = 30
-=======
->>>>>>> 087c049 (adding tmux conf)
     # Icon for notifications with normal urgency, uncomment to enable
     #default_icon = /path/to/icon
 
@@ -348,10 +340,6 @@
     frame_color = "STHEME_BORDER_ERROR"
     highlight = "STHEME_TEXT_ERROR"
     timeout = 0
-<<<<<<< HEAD
-    override_pause_level = 60
-=======
->>>>>>> 087c049 (adding tmux conf)
     # Icon for notifications with critical urgency, uncomment to enable
     #default_icon = dialog-warning-symbolic
 

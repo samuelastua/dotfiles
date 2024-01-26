@@ -25,17 +25,14 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader>X", "<cmd>!chmod -x %<CR>", { silent = true })
 
 -- move fast between buffers
-<<<<<<< HEAD
 vim.keymap.set({"n", "v"}, "<C-S-H>", "<C-w><left>", { silent = true })
 vim.keymap.set({"n", "v"}, "<C-S-J>", "<C-w><down>", { silent = true })
 vim.keymap.set({"n", "v"}, "<C-S-K>", "<C-w><up>", { silent = true })
 vim.keymap.set({"n", "v"}, "<C-S-L>", "<C-w><right>", { silent = true })
-=======
 vim.keymap.set({"n", "v"}, "<C-M-H>", "<C-w><left>", { silent = true })
 vim.keymap.set({"n", "v"}, "<C-M-J>", "<C-w><down>", { silent = true })
 vim.keymap.set({"n", "v"}, "<C-M-K>", "<C-w><up>", { silent = true })
 vim.keymap.set({"n", "v"}, "<C-M-L>", "<C-w><right>", { silent = true })
->>>>>>> 087c049 (adding tmux conf)
 
 
 -- to manipulate the CLIPBOARD selection (not the PRIMARY/current selection)
@@ -50,15 +47,12 @@ vim.keymap.set({"n", "v"}, "<leader>P", [["+p]]) -- put CLIPBOARD selection befo
 -- vim.keymap.set("n", "<leader>P", [["+P]]) -- put CLIPBOARD selectio after cursor
 
 -- browsing netrm like a chad
-<<<<<<< HEAD
 vim.keymap.set("n", "<leader>n", ":Ex<CR>")
 vim.keymap.set("n", "<leader>m", ":Vex<CR>")
 vim.keymap.set("n", "<leader>M", ":Hex<CR>")
-=======
 vim.keymap.set("n", "<leader>n", ":Ex!<CR>")
 vim.keymap.set("n", "<leader>m", ":Vex!<CR>")
 vim.keymap.set("n", "<leader>M", ":Hex!<CR>")
->>>>>>> 087c049 (adding tmux conf)
 
 
 -- fot better vertical nav and searching 
