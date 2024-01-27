@@ -112,10 +112,19 @@ source $ZSH/oh-my-zsh.sh
 
 # My pre-oh-my-zsh conf --------------------------
 #
+
+# key bindings
+# tmux_sessionizer () { 
+#   tmux-sessionizer
+# }
+# zle -N tmux_sessionizer                  
+# bindkey '^F' tmux_sessionizer
+# bindkey -s "^L" 'ls^M'
+
+#
 # aliases
-
 setopt completealiases
-
+alias f='tmux-sessionizer'
 alias dot='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias c=clear
 alias x=exit 

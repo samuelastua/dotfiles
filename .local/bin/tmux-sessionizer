@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    selected=$(find ~ -type d | fzf)
+fi
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+
+if tmux run 2>/dev/null; then # if tmux is running
+    tmux new-window -c $selected -n $selected_name
+    if [[ -z $TMUX ]]; then # if NOT inside tmux 
+        tmux attach
+    fi 
+else
+    tmux new-session -c $selected -n $selected_name
+fi
+
