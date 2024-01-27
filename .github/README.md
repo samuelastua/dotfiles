@@ -1,6 +1,7 @@
 # dotfiles
 Useful scipts and conf files
 - nvim
+- tmux
 - zsh
 - i3
 - dunst
