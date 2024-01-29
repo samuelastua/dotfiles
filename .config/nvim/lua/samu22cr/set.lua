@@ -17,8 +17,6 @@ vim.o.termguicolors = true
 
 -- commented cause I have a keymap that handles yanking/pasting into clipboard
 -- vim.o.clipboard = 'unnamedplus'
-vim.o.hlsearch = false
-vim.o.incsearch = true
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
@@ -35,12 +33,13 @@ vim.o.termguicolors = true
 
 -- miscellaneous
 vim.o.splitright = true
+vim.o.splitbelow = true
 
 vim.o.colorcolumn = "90"
 vim.o.signcolumn = "auto"
 -- vim.wo.signcolumn = 'yes'
 vim.opt.isfname:append("@-@")
-vim.opt.scrolloff = 30
+-- vim.opt.scrolloff = 999
 
 -- tabs
 vim.o.shiftwidth = 4

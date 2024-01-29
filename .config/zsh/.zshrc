@@ -115,6 +115,7 @@ source $ZSH/oh-my-zsh.sh
 
 # bindkeys
 bindkey -v # must be run before all other keybinds cause overrides
+bindkey -s ^E "f\n"
 bindkey -s ^F "tmux-sessionizer\n"
 bindkey -s ^A "tmux new-session -A\n"
 
