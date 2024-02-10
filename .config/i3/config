@@ -346,7 +346,7 @@ mode "$mode_gaps_left" {
 set $quick_access_key Shift
 
 # System
-bindsym $mod+F4 exec power-manager
+bindsym $mod+F3 exec power-manager
 bindsym $mod+$quick_access_key+x exec copyq toggle
 
 #bindsym $mod+$quick_access_key+y exec "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard)"
@@ -367,8 +367,10 @@ set $screenshots_dir ~/pictures/screenshots
 bindsym $mod+$quick_access_key+z exec "flameshot gui -c -p ~/pictures/screenshots"
 bindsym $mod+$quick_access_key+s exec "flameshot gui"
 bindsym $mod+Print exec "flameshot full -p $screenshots_dir; thunar $screenshots_dir"
+
+bindsym $mod+F4 exec --no-startup-id lockscreen
 bindsym $mod+F7 exec --no-startup-id toggle-screenkey
-bindsym $mod+F8 exec --no-startup-id lockscreen
+bindsym $mod+F8 exec --no-startup-id toggle-picom
 
 # Audio
 bindsym $mod+F11 exec pavucontrol
@@ -658,33 +660,28 @@ bindsym $mod+$quick_access_key+n exec --no-startup-id dunstctl close
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 
-#
-# Polybar
-
-exec_always --no-startup-id ~/.config/polybar/launch
-
-
 #i3 status (not cool)
 
-#bar {
-        #status_command i3status
-	#font pango:Hack 11
-	#position top
-	#tray_output primary
-	#workspace_buttons yes
-	#colors {
-		#background $secondary
-		#statusline $text-secondary
-		#separator $tertiary
-		##focused_background $secondary
-		##focused_statusline $text-secondary
-#
-##		colorclass	    border 		backgr.		text
-		#focused_workspace   $primary 		$primary	$secondary
-		#active_workspace    $tertiary 		$secondary 	$tertiary
-		#inactive_workspace  $secondary 		$secondary 	$tertiary
-		#urgent_workspace    $primary 		$warning 	$secondary
-	#}
-#}
+bar {
+        status_command i3status
+	# font pango:Hack 11
+        font pango:Hack Nerd Font 20
+	position top
+	tray_output primary
+	workspace_buttons yes
+	colors {
+		background $secondary
+		statusline $text-secondary
+		separator $tertiary
+		# focused_background $secondary
+		# focused_statusline $text-secondary
+
+#		colorclass	    border 		backgr.		text
+		focused_workspace   $primary 		$primary	$secondary
+		active_workspace    $tertiary 		$secondary 	$tertiary
+		inactive_workspace  $secondary 		$secondary 	$tertiary
+		urgent_workspace    $primary 		$warning 	$secondary
+	}
+}
 
 

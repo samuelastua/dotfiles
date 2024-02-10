@@ -35,7 +35,7 @@ vim.o.termguicolors = true
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.o.colorcolumn = "90"
+vim.o.colorcolumn = "80"
 vim.o.signcolumn = "auto"
 -- vim.wo.signcolumn = 'yes'
 vim.opt.isfname:append("@-@")

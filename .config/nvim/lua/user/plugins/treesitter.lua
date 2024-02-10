@@ -52,6 +52,7 @@ return  {
               enable = true,
               set_jumps = true, -- whether to set jumps in the jumplist
               goto_next_start = {
+                [']p'] = '@parameter.inner',
                 [']m'] = '@function.outer',
                 [']]'] = '@class.outer',
               },
@@ -60,6 +61,7 @@ return  {
                 [']['] = '@class.outer',
               },
               goto_previous_start = {
+                ['[p'] = '@parameter.inner',
                 ['[m'] = '@function.outer',
                 ['[['] = '@class.outer',
               },

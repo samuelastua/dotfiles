@@ -66,12 +66,13 @@ return {
                 vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
                     vim.lsp.buf.format({
                         formatting_options = {
+                            -- tabSize = 4
                             tabSize = vim.o.shiftwidth
                         }
                     })
-                    vim.print(vim.o.shiftwidth)
+                    -- vim.print(vim.o.shiftwidth)
                 end, { desc = 'Format current buffer with LSP' })
-                nmap('<leader>f', ":Format<CR>", '[W]orkspace [R]emove Folder')
+                nmap('<leader>f', ":Format<CR>", '[F]ormat document')
 
                 -- To instead override globally
 
