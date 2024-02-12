@@ -30,6 +30,7 @@ vim.o.smartcase = true
 
 -- UI
 vim.o.termguicolors = true
+vim.opt.fillchars = { stlnc = '─', stl = '─' }
 
 -- miscellaneous
 vim.o.splitright = true
