@@ -58,8 +58,8 @@
 # 	- Add support for a more fine grained feh bg conf (output, and
 # 	bg mode (tiled, fill, center) 
 
-type feh > /dev/null || {
-	echo "Need feh installed to work :'v"
+type xwallpaper > /dev/null || {
+	echo "Need xwallpaper installed to work :'v"
 	exit 1
 	}
 type wal > /dev/null || {
@@ -71,15 +71,31 @@ type swo > /dev/null || {
 	exit 1
 }
 
+if [[ -z "${XDG_STATE_HOME}" ]]; then
+  XDG_STATE_HOME="$HOME/.local/state"
+fi
+stheme_state_dir="$XDG_STATE_HOME/stheme"
+stheme_wallpaper_ln="$stheme_state_dir/wallpaper"
+mk_stheme_dirs () {
+	if [ ! -d "$stheme_state_dir" ]; then
+		mkdir $stheme_state_dir
+	fi
+}
+
 
 [ -z $1 ] && { 
-	~/.fehbg || {
-		echo "No wallpaper previously confed with feh (no ~/.fehbg present)"
-		echo "Pls cofig wallpaper with feh previously or argument a file image to this command"
-		exit 1
+
+	[ ! -f "$stheme_wallpaper_ln" ] && {
+		echo "No wallpaper previously set, $stheme_wallpaper_ln doesn't exits"
+		exit 1;
 	}
+	xwallpaper --center "$stheme_wallpaper_ln" && echo "[INFO]: Successfully set wallpaper(s)"
 	wal -nR # -n so bg doesnt change and keep bg confed by feh
-	swo &
+	if pgrep -x "openrgb" > /dev/null 
+	then
+		# running openrgb...
+		swo &
+	fi
 	exit 0
 }
 
@@ -91,8 +107,15 @@ type swo > /dev/null || {
 }
 
 wal -n -i "$1"  -o swo &
-feh --bg-fill "$@" && echo "[INFO]: Successfully set wallpaper(s)"
-swo && echo "[INFO]: Successfully synced pywal & openrgb"
+ln -f "$1" "$stheme_wallpaper_ln"
+xwallpaper --center "$stheme_wallpaper_ln" && echo "[INFO]: Successfully set wallpaper(s)"
+
+if pgrep -x "openrgb" > /dev/null 
+then
+	# running openrgb...
+	swo && echo "[INFO]: Successfully synced pywal & openrgb"
+fi
+
 
 type pywalfox > /dev/null && {
 	echo "[INFO]: Applying theme to firefox (via pywalfox)" 
