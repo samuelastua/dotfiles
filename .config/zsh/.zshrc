@@ -112,17 +112,33 @@ source $ZSH/oh-my-zsh.sh
 
 # My pre-oh-my-zsh conf --------------------------
 
+# env vars...
+# path
+export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/.spicetify
+export PATH=$PATH:/home/samu22cr/.spicetify
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/home/samu22cr/.spicetify
+
+# misc
+export EDITOR=nvim
+export TERMINAL=alacritty
+export BROWSER=firefox
+
+
+
 
 # bindkeys
 bindkey -v # must be run before all other keybinds cause overrides
 bindkey -s ^E "f\n"
+bindkey -s ^R "ranger\n"
 bindkey -s ^F "tmux-sessionizer\n"
 bindkey -s ^A "tmux new-session -A\n"
 
 #
 # aliases
 setopt completealiases
-alias dot='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
+alias dot='/usr/bin/git --git-dir="$HOME/.dotfiles/.git/" --work-tree="$HOME"'
 alias c=clear
 alias x=exit 
 alias cl="clear && ls -l"
@@ -134,8 +150,7 @@ alias la="ls -la"
 alias p="sudo pacman"
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-# alias v="vim"
-# alias nv="nvim"
+alias sv="sudo nvim"
 
 
 # vi mode
@@ -163,10 +178,12 @@ zle -N zle-keymap-select
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 
 # history
-#HISTFILE=~/$ZDOTDIR/.histfile
+# HISTFILE=$HOME/$ZDOTDIR/.zsh_history
 HISTSIZE=1000
 SAVEHIST=10000
-#
+
 # Apply pywal to new terminals
 (cat ~/.cache/wal/sequences &)
 source ~/.cache/wal/colors-tty.sh # <<--- suppport for TTYs
+echo " "
+neofetch
