@@ -28,13 +28,13 @@
 #		from pywal colorscheme to generate background on every X
 #		screen
 #		- Make it so every dependency here is not a dependency at
-#		all (excepy pywal and maybe feh) so users can opt in or out
+#		all (excepy pywal and maybe xwallpaper) so users can opt in or out
 #		cool features (
 #		
 # DEPENDENCIES:
 # 
 # 	- pywal
-# 	- feh
+# 	- xwallpaper
 # 	- openrgb
 # 	- swo (sync pywal and openrgb)
 # 	- spicetify (for spicewal integration)
@@ -55,7 +55,7 @@
 # PENDING: 
 # 	- receive argument to get if $1 is dark enough
 # 	to saturate pywal behavior so OpenRGB colors are brighter
-# 	- Add support for a more fine grained feh bg conf (output, and
+# 	- Add support for a more fine grained xwallpaper bg conf (output, and
 # 	bg mode (tiled, fill, center) 
 
 type xwallpaper > /dev/null || {
@@ -90,7 +90,7 @@ mk_stheme_dirs () {
 		exit 1;
 	}
 	xwallpaper --center "$stheme_wallpaper_ln" && echo "[INFO]: Successfully set wallpaper(s)"
-	wal -nR # -n so bg doesnt change and keep bg confed by feh
+	wal -nR # -n so bg doesnt change and keep bg confed by xwallpaper
 	if pgrep -x "openrgb" > /dev/null 
 	then
 		# running openrgb...
