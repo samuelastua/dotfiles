@@ -132,6 +132,7 @@ export BROWSER=firefox
 bindkey -v # must be run before all other keybinds cause overrides
 bindkey -s ^E "f\n"
 bindkey -s ^R "ranger\n"
+bindkey -s ^V "v\n"
 bindkey -s ^F "tmux-sessionizer\n"
 bindkey -s ^A "tmux new-session -A\n"
 
