@@ -355,10 +355,10 @@ bindsym $mod+$quick_access_key+x exec copyq toggle
 bindsym --whole-window $mod+button2 exec copyq menu
 
 # Programs
-bindsym $mod+$quick_access_key+m exec spotify-launcher
-bindsym $mod+$quick_access_key+f exec firefox
-bindsym $mod+$quick_access_key+b exec brave
-bindsym $mod+$quick_access_key+w exec launch-whatsapp
+bindsym $mod+$quick_access_key+m exec spotify
+bindsym $mod+$quick_access_key+f exec firefox-bin
+# bindsym $mod+$quick_access_key+b exec brave
+bindsym $mod+$quick_access_key+w exec "firefoxpwa site launch 01HQ33KD6FTBGYGMA2T26K84K6 --protocol"
 bindsym $mod+$quick_access_key+d exec discord
 bindsym $mod+$quick_access_key+e exec alacritty --class ranger --title ranger -e zsh -ic "ranger"
 
@@ -378,6 +378,7 @@ bindsym $mod+F12 exec --no-startup-id alacritty --class pulsemixer --title pulse
 
 
 for_window [class="Pavucontrol"] floating enable
+for_window [class="openrgb"] floating enable
 for_window [class="Thunar"] floating enable
 for_window [class="pulsemixer"] floating enable
 # for_window [class="Sxiv"] floating enable
@@ -416,13 +417,13 @@ for_window [instance="Brave-browser"] move container to workspace8;
 ###################################################
 
 # room
-workspace $ws1 output DP-2
-workspace $ws2 output DP-2
-workspace $ws3 output DP-2
+workspace $ws1 output DP-0
+workspace $ws2 output DP-0
+workspace $ws3 output DP-0
 
-workspace $ws4 output DP-1
-workspace $ws5 output DP-1
-workspace $ws6 output DP-1
+workspace $ws4 output DP-3
+workspace $ws5 output DP-3
+workspace $ws6 output DP-3
 
 workspace $ws7 output HDMI-0
 workspace $ws8 output HDMI-0
@@ -451,12 +452,12 @@ workspace $ws10 output HDMI-0
 ##   				  	       	   ##
 #####################################################
 #####################################################
-exec spotify-launcher
+exec spotify
 
 
 # PENDING:
 #	- include MUTT here (email client)
-#	- chage spotify-launcher to spotify-tui
+#	- chage spotify to spotify-tui
 
 ###########################################################
 ###########################################################
@@ -500,17 +501,18 @@ smart_gaps inverse_outer
 ## class                 border  backgr. text    indicator child_border
 #for_window [class="^.*"] client.focused          #77dd77 #285577 #ffffff #2e9ef4   #285577
 
-
-#
-# MISCELLANEOUS
-#
+###########################################################
+###########################################################
+##						  	 ##
+##	                MISCELLANEOUS         		 ##
+##						  	 ##
+###########################################################
+###########################################################
 # So mouse doesn't go to center of windows when switching screens
 mouse_warping none
 # Jumnping back and forth of workspaces using same key
 # used to change the workspace without having to think
 # about where I come from, pretty goddamm useful
-
-
 
 # Delay time taken from urgency state (red [<= if default] color around window) to reset after focusing
 # respective workspace so that I have more time to see which window is demanding
@@ -581,8 +583,8 @@ focus_follows_mouse no
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack Nerd Font 20
-#font pango:DejaVu Sans Mono 11
+font pango:Hack 20
+# font pango:DejaVu Sans Mono 11
 #font pango:monospace 12
 #font pango:monospace 8 <<<--- default font conf
 
@@ -664,8 +666,7 @@ bindsym $mod+$quick_access_key+n exec --no-startup-id dunstctl close
 
 bar {
         status_command i3status
-	# font pango:Hack 11
-        font pango:Hack Nerd Font 20
+        font pango:Hack 20
 	position top
 	tray_output primary
 	workspace_buttons yes
