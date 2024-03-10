@@ -44,19 +44,20 @@
 # 	- dunst notification server (optional)
 #
 #
+# SYNOPSIS:
+#
+#	stheme path/to/pywal_image xwallpaper_args...
+#	
 # USAGE EXAMPLE:
 #
-#	theme setter wal1.png wal2.png
+#	stheme pywal_image.png --center one_image.png
 #
-# This way wal1.png is set on your display 0 (check this with 'xrandr --listmonitors")
-# and wal2.png is set on your display 1 (and so on with every argument and every display).
-#
+# First argument is image to be used for setting pywal colorscheme,
+# and rest of arguments are xwallpaper arguments to configure wallpaper
 #
 # PENDING: 
 # 	- receive argument to get if $1 is dark enough
 # 	to saturate pywal behavior so OpenRGB colors are brighter
-# 	- Add support for a more fine grained xwallpaper bg conf (output, and
-# 	bg mode (tiled, fill, center) 
 
 type xwallpaper > /dev/null || {
 	echo "Need xwallpaper installed to work :'v"
@@ -71,25 +72,27 @@ type swo > /dev/null || {
 	exit 1
 }
 
+
 if [[ -z "${XDG_STATE_HOME}" ]]; then
   XDG_STATE_HOME="$HOME/.local/state"
 fi
-stheme_state_dir="$XDG_STATE_HOME/stheme"
-stheme_wallpaper_ln="$stheme_state_dir/wallpaper"
-mk_stheme_dirs () {
-	if [ ! -d "$stheme_state_dir" ]; then
-		mkdir $stheme_state_dir
-	fi
-}
 
+stheme_state_dir="$XDG_STATE_HOME/stheme"
+stheme_xwallpaper_args="$stheme_state_dir/xwallpaper_args"
+stheme_pwd="$stheme_state_dir/stheme_pwd"
 
 [ -z $1 ] && { 
-
-	[ ! -f "$stheme_wallpaper_ln" ] && {
-		echo "No wallpaper previously set, $stheme_wallpaper_ln doesn't exits"
+	[ ! -d "$stheme_state_dir" ] && {
+		echo "[WARNING]: No wallpaper previously set, creating state dir"
+		mkdir $stheme_state_dir
 		exit 1;
 	}
-	xwallpaper --center "$stheme_wallpaper_ln" && echo "[INFO]: Successfully set wallpaper(s)"
+	[ ! -f "$stheme_xwallpaper_args" ] && {
+		echo "[ERROR]: No wallpaper previously set, pls specify args"
+		exit 1;
+	}
+	cd $(cat $stheme_pwd) && echo "[INFO]: Successfully changed directory"
+	xwallpaper $(cat $stheme_xwallpaper_args) && echo "[INFO]: Successfully set wallpaper(s)"
 	wal -nR # -n so bg doesnt change and keep bg confed by xwallpaper
 	if pgrep -x "openrgb" > /dev/null 
 	then
@@ -100,15 +103,32 @@ mk_stheme_dirs () {
 }
 
 [ $1 = "-h" ] && {
-	echo "Usage: theme-setter [FILES...]"
-	echo "Description: assign wallpaper by mapping argument number with screen monitor."
-	echo "Check for screen numbers with \"xrandr --listmonitors\""
+	echo "Usage: stheme path/to/pywal_image xwallpaper_args... "
+	echo "Description: set global theme. Use xwallpaper args for wallpaper
+	configuration"
 	exit 0
 }
 
-wal -n -i "$1"  -o swo &
-ln -f "$1" "$stheme_wallpaper_ln"
-xwallpaper --center "$stheme_wallpaper_ln" && echo "[INFO]: Successfully set wallpaper(s)"
+# Parsing arguments and extracting pywal_image
+pywal_image=""
+for arg do
+  shift
+  [ -f $arg ] &&  {
+	pywal_image=$arg
+	# continue
+	break;
+  } 
+  set -- "$@" "$arg"
+done
+if [[ -z "$pywal_image" ]]; then
+	echo "[ERROR]: No pywal image specified"
+	exit 1
+fi
+
+wal -n -i "$pywal_image"  -o swo &
+echo "$@" > $stheme_xwallpaper_args
+xwallpaper "$@" && echo "[INFO]: Successfully set wallpaper(s)"
+echo $PWD > $stheme_pwd
 
 if pgrep -x "openrgb" > /dev/null 
 then
