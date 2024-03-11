@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-settings 6.08 for ghost on Sun Mar 10 21:37:31 2024.
+# Written by xscreensaver-settings 6.08 for ghost on Sun Mar 10 21:41:10 2024.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:10:00
@@ -14,8 +14,8 @@ splash:		True
 splashDuration:	0:00:05
 demoCommand:	xscreensaver-settings
 nice:		10
-fade:		True
-unfade:		True
+fade:		False
+unfade:		False
 fadeSeconds:	0:00:01
 ignoreUninstalledPrograms:False
 dpmsEnabled:	True
@@ -37,7 +37,7 @@ textFile:	/etc/gentoo-release
 textProgram:	fortune
 textURL:	https://planet.gentoo.org/rss20.xml
 dialogTheme:	borderlessblack
-settingsGeom:	3389,-3 -1,-1
+settingsGeom:	1386,38 -1,-1
 
 programs:								      \
 				maze --root				    \n\
