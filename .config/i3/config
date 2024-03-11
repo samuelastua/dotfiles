@@ -368,7 +368,7 @@ bindsym $mod+$quick_access_key+z exec "flameshot gui -c -p ~/pictures/screenshot
 bindsym $mod+$quick_access_key+s exec "flameshot gui"
 bindsym $mod+Print exec "flameshot full -p $screenshots_dir; thunar $screenshots_dir"
 
-bindsym $mod+F1 exec --no-startup-id lockscreen
+bindsym $mod+F1 exec --no-startup-id xscreensaver-command -lock
 bindsym $mod+F7 exec --no-startup-id toggle-screenkey
 bindsym $mod+F8 exec --no-startup-id toggle-picom
 
@@ -583,7 +583,7 @@ focus_follows_mouse no
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack 20
+font pango:Hack 11
 # font pango:DejaVu Sans Mono 11
 #font pango:monospace 12
 #font pango:monospace 8 <<<--- default font conf
@@ -666,7 +666,6 @@ bindsym $mod+$quick_access_key+n exec --no-startup-id dunstctl close
 
 bar {
         status_command i3status
-        font pango:Hack 20
 	position top
 	tray_output primary
 	workspace_buttons yes
