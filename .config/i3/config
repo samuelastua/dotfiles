@@ -666,6 +666,7 @@ bindsym $mod+$quick_access_key+n exec --no-startup-id dunstctl close
 
 bar {
         status_command i3status
+        output DP-0
 	position top
 	tray_output primary
 	workspace_buttons yes
