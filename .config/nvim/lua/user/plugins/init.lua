@@ -6,7 +6,10 @@ return {
     "eandrju/cellular-automaton.nvim",
     {
         "folke/zen-mode.nvim",
-        opts = {}
+        opts = {},
+        config = function()
+            vim.keymap.set("n", "<leader>z", ":ZenMode<CR>" )
+        end
     },
     {
         'numToStr/Comment.nvim',
