@@ -394,8 +394,8 @@ for_window [class="ranger"] floating enable
 ###################################################
 ###################################################
 # assign [class="firefox"] $ws1
-assign [class="Spotify"] $ws10
-assign [class="discord"] $ws9
+assign [class="Spotify"] $ws4
+assign [class="discord"] $ws10
 assign [class="crx_hnpfjngllnobngcgfapefoaidbinmjnm" instance="Brave-browser"] $ws8
 assign [class="whatsapp"] $ws8
 assign [class="WhatsApp Web"] $ws8
@@ -666,7 +666,7 @@ bindsym $mod+$quick_access_key+n exec --no-startup-id dunstctl close
 
 bar {
         status_command i3status
-        output DP-0
+        # output DP-0
 	position top
 	tray_output primary
 	workspace_buttons yes
