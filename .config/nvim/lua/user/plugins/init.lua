@@ -1,7 +1,7 @@
 return {
     -- automatically adjusts 'shiftwidth' and 'expandtab'
     -- dont like this plugin but keeping here just in case
-    'tpope/vim-sleuth',
+    -- 'tpope/vim-sleuth',
     --  ^^^
     "eandrju/cellular-automaton.nvim",
     {
