@@ -473,25 +473,24 @@ exec spotify
 # and title bars are visible in those modes
 title_align center 
 # doesn't show title bar on any window, but shows borders
-default_border pixel 3
+default_border pixel 4
 #default_border none
 
 default_floating_border pixel
 # shows borders only if there is more than one container
 # on a workspace && there are no gaps set (gap size == 0)
-hide_edge_borders smart_no_gaps
+# hide_edge_borders smart_no_gaps
 # if gap size > 0 show borders; else no borders at all
-# smart_borders no_gaps
+smart_borders no_gaps
 
 #
 # GAPS
-#
-gaps inner 15
-gaps outer 5
-gaps top 0
+# gaps inner 15
+# gaps outer 5
+# gaps top 0
 
 # no gaps show when only one 1 window/split container on workspace
-# smart_gaps on
+smart_gaps on
 
 # inverse_outer only enables outer gaps when there is exactly one
 # window or split container on the workspace.
