@@ -5,6 +5,9 @@ return {
     opts = {
     } -- this is equalent to setup({}) function
   },
+    {
+        "tpope/vim-surround"
+    },
   {
     'hrsh7th/nvim-cmp',
     dependencies = {

@@ -4,6 +4,7 @@ return {
     -- 'tpope/vim-sleuth',
     --  ^^^
     "eandrju/cellular-automaton.nvim",
+    'ryanoasis/vim-devicons',
     {
         "folke/zen-mode.nvim",
         opts = {},
