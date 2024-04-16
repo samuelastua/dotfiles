@@ -365,6 +365,7 @@ bindsym $mod+$quick_access_key+e exec alacritty --class ranger --title ranger -e
 
 # Unicode/Keyboard
 bindsym $mod+comma exec --no-startup-id "emoji_picker" 
+bindsym $mod+c exec --no-startup-id "char_picker" 
 
 
 # Screen
