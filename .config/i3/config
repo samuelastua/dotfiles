@@ -362,6 +362,11 @@ bindsym $mod+$quick_access_key+w exec "firefoxpwa site launch 01HQ33KD6FTBGYGMA2
 bindsym $mod+$quick_access_key+d exec discord
 bindsym $mod+$quick_access_key+e exec alacritty --class ranger --title ranger -e zsh -ic "ranger"
 
+
+# Unicode/Keyboard
+bindsym $mod+comma exec --no-startup-id "emoji_picker" 
+
+
 # Screen
 set $screenshots_dir ~/pictures/screenshots
 bindsym $mod+$quick_access_key+z exec "flameshot gui -c -p ~/pictures/screenshots"
