@@ -16,9 +16,9 @@ selected_name=$(basename "$selected" | tr . _)
 if tmux run 2>/dev/null; then # if tmux is running
     tmux new-window -c $selected -n $selected_name
     if [[ -z $TMUX ]]; then # if NOT inside tmux 
-        tmux attach
+        tmux attach 
     fi 
 else
-    tmux new-session -c $selected -n $selected_name
+    tmux new-session -c $selected -n $selected_name -s hacking
 fi
 

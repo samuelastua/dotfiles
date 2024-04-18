@@ -7,7 +7,7 @@
 
 configuration {
 /*	modes: "window,drun,run";*/
-	font: "mono 16";
+/*	font: "mono 12";*/
 /*	location: 0;*/
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/

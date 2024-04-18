@@ -75,9 +75,7 @@ bindsym $mod+v split v
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# change container layout (stacked, tabbed, toggle split) bindsym $mod+s layout stacking bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -356,7 +354,7 @@ bindsym --whole-window $mod+button2 exec copyq menu
 
 # Programs
 bindsym $mod+$quick_access_key+m exec spotify
-bindsym $mod+$quick_access_key+f exec firefox-bin
+bindsym $mod+$quick_access_key+f exec firefox
 # bindsym $mod+$quick_access_key+b exec brave
 bindsym $mod+$quick_access_key+w exec "firefoxpwa site launch 01HQ33KD6FTBGYGMA2T26K84K6 --protocol"
 bindsym $mod+$quick_access_key+d exec discord
@@ -588,7 +586,7 @@ focus_follows_mouse no
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack 11
+font pango:Hack Nerd Font 11
 # font pango:DejaVu Sans Mono 11
 #font pango:monospace 12
 #font pango:monospace 8 <<<--- default font conf
