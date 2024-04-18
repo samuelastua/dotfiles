@@ -77,6 +77,7 @@ ZSH_THEME="robbyrussell"
 plugins=(
 	git 
 	zsh-syntax-highlighting 
+    zsh-autosuggestions
 )
 source $ZSH/oh-my-zsh.sh
 
@@ -135,6 +136,8 @@ bindkey -s ^R "ranger\n"
 bindkey -s ^V "v\n"
 bindkey -s ^F "tmux-sessionizer\n"
 bindkey -s ^A "tmux new-session -A\n"
+bindkey -s ^W "pwd | xclip -selection clipboard\n"
+bindkey '^ ' autosuggest-accept # <-- ctrl+space to accept current suggestion
 
 #
 # aliases
