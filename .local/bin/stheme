@@ -9,27 +9,21 @@
 #  	- This only works with X (yeah, don't plan to support Wayland or any other(for now..))
 #  	- To make it persistent just exceute this program whenever you start your 
 #  	  X server (e.g in your .xinitrc)
-#	- It assigns wallpapers by mapping argument number with screen monitor. (fot now...)
-#	- Colorsheme is set based on your first argument (i.e first wallpaper) (for now...)
-#	- OpenRGB server running as daemon
+#	- It assigns wallpapers by using same arguments you would use with xwallpaper
+#	- Colorsheme is set based on your first argument (i.e first wallpaper) and
+#	other arguments are passed to xwallpaper to set wallpapers
+#	- OpenRGB server needs to be running as daemon
 #
 # CURRENT STATE AND FUTURE FEATURES:
 #	- Don't plan to add features right now, but when I decide to add features I will 
 #	probably add...
 #		- Make a TUI for these and a more sophisticated CLI tool (in Rust || C || C++)
 #		- Fix error when bad args are passed
-#		- More fine grained contro over screen-to-wallpaper mapping (should probably 
-#		do some more hackerman argument parsing)
-#		- Make it possible to select which file/wallpaper to use to create the
-#		colorscheme
 #		- Make OpenRGB OPTIONAL so users and opt out/in of it (depending if
 #		it tries to sync PyWal and OpenRGB by default or not)
-#		- Make it so that if no ~/.fegbg was found then use colors
-#		from pywal colorscheme to generate background on every X
-#		screen
 #		- Make it so every dependency here is not a dependency at
 #		all (excepy pywal and maybe xwallpaper) so users can opt in or out
-#		cool features (
+#		cool features)
 #		
 # DEPENDENCIES:
 # 
@@ -54,6 +48,7 @@
 #
 # First argument is image to be used for setting pywal colorscheme,
 # and rest of arguments are xwallpaper arguments to configure wallpaper
+# with xwallpaper
 #
 # PENDING: 
 # 	- receive argument to get if $1 is dark enough
@@ -104,8 +99,7 @@ stheme_pwd="$stheme_state_dir/stheme_pwd"
 
 [ $1 = "-h" ] && {
 	echo "Usage: stheme path/to/pywal_image xwallpaper_args... "
-	echo "Description: set global theme. Use xwallpaper args for wallpaper
-	configuration"
+	echo "Description: set global theme. Use xwallpaper args for wallpaper configuration"
 	exit 0
 }
 

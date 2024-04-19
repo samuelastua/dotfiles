@@ -45,7 +45,7 @@ case $selected in
 		rs=$?
 		if [ $rs -eq 1 ]; then
 			echo "shutting down all...";
-			i3-msg exit ; shutdown now
+			i3-msg exit ; openrc-shutdown -p now
 		fi
 		  echo "NOT shutting down all...";
 		;;

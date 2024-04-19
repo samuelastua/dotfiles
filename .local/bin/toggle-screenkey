@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ~/.cache/wal/colors.sh
+
 if pgrep -x "screenkey" > /dev/null 
 then
 	# running...
@@ -12,10 +14,9 @@ then
 fi
 
 # not running...
-screenkey -s small > /dev/null & disown
+screenkey -s small --bg-color "$color0" --font-color "$color7" > /dev/null & disown
 notify-send "Now running screenkey" \
 	--app-name="Screenkey" \
 	-r "321387" \
 	--icon "input-keyboard-symbolic";
-
 

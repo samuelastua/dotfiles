@@ -258,7 +258,6 @@ case $1 in
 			-h "int:value:$player_vol_pct" \
 			--icon "$player_vol_icon" \
 		;;
-
 esac
 
 
