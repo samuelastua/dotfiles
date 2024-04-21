@@ -46,7 +46,7 @@ return {
         opts = {
             options = {
                 icons_enabled = true,
-                theme = 'rose-pine',
+                theme = 'pywal',
                 component_separators = '|',
                 section_separators = '',
             },
