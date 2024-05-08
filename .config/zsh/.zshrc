@@ -113,13 +113,19 @@ source $ZSH/oh-my-zsh.sh
 
 # My pre-oh-my-zsh conf --------------------------
 
-# env vars...
+# env vars..............
+#
 # path
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/.spicetify
-export PATH=$PATH:/home/samu22cr/.spicetify
 export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/home/samu22cr/.spicetify
+export PATH=$PATH:$HOME/.config/rofi/scripts
+
+
+# android
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # misc
 export EDITOR=nvim
@@ -155,6 +161,9 @@ alias p="sudo pacman"
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias sv="sudo nvim"
+alias pn="pnpm"
+alias gui="dbus-run-session Hyprland"
+# alias gui="dbus-run --exit-with-session Hyprland"
 
 
 # vi mode
@@ -191,3 +200,4 @@ SAVEHIST=10000
 source ~/.cache/wal/colors-tty.sh # <<--- suppport for TTYs
 echo " "
 neofetch
+

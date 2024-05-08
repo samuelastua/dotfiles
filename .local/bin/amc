@@ -12,16 +12,16 @@ function set_volume_info() {
 	vol_summary="%$vol_pct"
 	if [[ $vol_pct -gt 100 ]]; 
 	then
-		vol_icon="audio-volume-high-symbolic"
+		vol_icon="audio-volume-high"
 		vol_summary="%$vol_pct, to damm loud!"
 	elif [[ $vol_pct -gt 80 ]]; 
 	then 
-		vol_icon="audio-volume-high-symbolic"
+		vol_icon="audio-volume-high"
 	elif [[ $vol_pct -gt 20 ]];
 	then
-		vol_icon="audio-volume-medium-symbolic"
+		vol_icon="audio-volume-medium"
 	else
-		vol_icon="audio-volume-low-symbolic"
+		vol_icon="audio-volume-low"
 	fi
 }
 
@@ -32,7 +32,7 @@ function set_player_volume_info() {
 			--app-name="Audio & Media Controller" \
 			-r "77777" \
 			-u critical \
-			-i arch-error-symbolic ;
+			-i arch-error ;
 			exit 0
 	}
 
@@ -41,12 +41,12 @@ function set_player_volume_info() {
 	player_vol_pct=$(echo "$(playerctl volume) * 100" | bc | cut -d "." -f 1 | cut -d "," -f 1)
 	if [[ $player_vol_pct -gt 70 ]]; 
 	then 
-		player_vol_icon="audio-volume-high-symbolic"
+		player_vol_icon="audio-volume-high"
 	elif [[ $player_vol_pct -gt 20 ]];
 	then
-		player_vol_icon="audio-volume-medium-symbolic"
+		player_vol_icon="audio-volume-medium"
 	else
-		player_vol_icon="audio-volume-low-symbolic"
+		player_vol_icon="audio-volume-low"
 	fi
 }
 
@@ -56,13 +56,13 @@ function set_player_info() {
 	player_summary=$(playerctl metadata --format "{{title}} - {{artist}}")
 	case $player_status in
 		"Playing")
-			player_icon="media-playback-pause-symbolic"
+			player_icon="media-playback-pause"
 			;;
 		"Paused")
-			player_icon="media-playback-start-symbolic"
+			player_icon="media-playback-start"
 			;;
 		"Stopped")
-			player_icon="media-playback-stop-symbolic"
+			player_icon="media-playback-stop"
 			;;
 	esac
 }
@@ -74,7 +74,7 @@ case $1 in
 		set_volume_info
 		notify-send "$vol_summary" \
 			--app-name="System Volume" \
-			-r "99999" \
+			--hint="string:x-dunst-stack-tag:amc-vol" \
 			-h "int:value:$vol_pct" \
 			--icon "$vol_icon" \
 		;;
@@ -83,7 +83,7 @@ case $1 in
 		set_volume_info
 		notify-send "$vol_summary" \
 			--app-name="System Volume" \
-			-r "99999" \
+			--hint="string:x-dunst-stack-tag:amc-vol" \
 			--icon "$vol_icon" \
 			-h "int:value:$vol_pct" \
 		;;
@@ -92,17 +92,17 @@ case $1 in
 		set_volume_info
 		if [[ $vol_muted -eq 1 ]]; 
 		then
-			vol_icon="audio-volume-muted-symbolic"
+			vol_icon="audio-volume-muted"
 			vol_summary="Muted"
 			notify-send "$vol_summary" \
 				--app-name="System Volume" \
-				-r "99999" \
+				--hint="string:x-dunst-stack-tag:amc-vol" \
 				--icon "$vol_icon" \ 
 			exit 0
 		fi
 		notify-send "$vol_summary" \
 			--app-name="System Volume" \
-			-r "99999" \
+			--hint="string:x-dunst-stack-tag:amc-vol" \
 			-h "int:value:$vol_pct" \
 			--icon "$vol_icon" \ 
 		;;
@@ -113,17 +113,18 @@ case $1 in
 				"$player_summary" \
 				--app-name="$player_name" \
 				--icon $player_icon \
-				-r "88888" \
+				--hint="string:x-dunst-stack-tag:amc" \
 		;;
+
 	"stop-player") 
 			playerctl stop
 			set_player_info
-			player_icon="media-playback-stop-symbolic"
+			player_icon="media-playback-stop"
 			notify-send \
 				"$player_summary" \
 				--app-name="$player_name" \
 				--icon $player_icon \
-				-r "88888" \
+				--hint="string:x-dunst-stack-tag:amc" \
 		;;
 	"shift-player") 
 			playerctld shift
@@ -131,22 +132,22 @@ case $1 in
 			notify-send \
 				"Now focusing $(playerctl metadata --format '{{uc(playerName)}}')" \
 				--app-name="Audio & Media Controller" \
-				-i focus-windows-symbolic \
-				-r "88888" \
+				-i focus-windows \
+				--hint="string:x-dunst-stack-tag:amc" \
 		;;
 	"toggle-shuffle-player") 
-		player_name=$(playerctl metadata --format "{{playerName}}")
+		player_name=$(playerctl metadata --format "{{uc(playerName)}}")
 		player_shuffle=$(playerctl shuffle)
 		case $player_shuffle in
 			"On")
 				# then NOT shuffle anymore
-				player_icon="media-playlist-no-shuffle-symbolic"
+				player_icon="media-playlist-no-shuffle"
 				player_summary="Shuffle OFF for $player_name"
 				playerctl shuffle Off
 				;;
 			"Off")
 				# then turn ON shuffle
-				player_icon="media-playlist-shuffle-symbolic"
+				player_icon="media-playlist-shuffle"
 				player_summary="Shuffle ON for $player_name"
 				playerctl shuffle On
 				;;
@@ -155,7 +156,7 @@ case $1 in
 			"$player_summary" \
 			--app-name="Audio & Media Controller" \
 			-i  $player_icon \
-			-r "88888" \
+			--hint="string:x-dunst-stack-tag:amc" \
 		;;
 	"change-loop-player") 
 		player_loop=$(playerctl loop)
@@ -167,29 +168,29 @@ case $1 in
 		case $player_loop in
 			"None")
 				playerctl loop Track
-				player_icon=media-playlist-repeat-one-symbolic
+				player_icon=media-playlist-repeat-one
 				notify-send \
 					"Loop - Track" \
 					--app-name="Audio & Media Controller" \
 					-i  $player_icon \
-					-r "88888" \
+					--hint="string:x-dunst-stack-tag:amc" \
 				;;
 			"Track")
-				playerctl loop Playlist ; player_icon=media-playlist-repeat-symbolic
+				playerctl loop Playlist ; player_icon=media-playlist-repeat
 				notify-send \
 					"Loop - Playlist" \
 					--app-name="Audio & Media Controller" \
 					-i  $player_icon \
-					-r "88888" \
+					--hint="string:x-dunst-stack-tag:amc" \
 				;;
 			"Playlist")
 				playerctl loop None
-				player_icon=media-playlist-no-repeat-symbolic
+				player_icon=media-playlist-no-repeat
 				notify-send \
 					"Loop - Disabled" \
 					--app-name="Audio & Media Controller" \
 					-i  $player_icon \
-					-r "88888" \
+					--hint="string:x-dunst-stack-tag:amc" \
 				;;
 		esac
 		;;
@@ -200,11 +201,12 @@ case $1 in
 			exit 0;
 		fi
 		player_title="$(playerctl metadata --format '{{ title }}')"
+		player_artist="$(playerctl metadata --format '{{ artist }}')"
 		notify-send \
-			"Now playing: $player_title" \
+			"Now playing: $player_title - $player_artist" \
 			--app-name="$player_name" \
-			-i  "media-skip-forward-symbolic" \
-			-r "88888" \
+			-i  "media-skip-forward" \
+			--hint="string:x-dunst-stack-tag:amc" \
 		;;
 
 	"prev-track") 
@@ -213,12 +215,13 @@ case $1 in
 		if [[ "$player_name" == "spotify" ]]; then
 			exit 0;
 		fi
-		player_title="$(playerctl metadata --format '{{ status }}')"
+		player_title="$(playerctl metadata --format '{{ title }}')"
+		player_artist="$(playerctl metadata --format '{{ artist }}')"
 		notify-send \
-			"Now playing: $player_title" \
+			"Now playing: $player_title - $player_artist" \
 			--app-name="$player_name" \
-			-i  "media-skip-backward-symbolic" \
-			-r "88888" \
+			-i  "media-skip-backward" \
+			--hint="string:x-dunst-stack-tag:amc" \
 		;;
 	"seek-forward-track") 
 		player_name="$(playerctl metadata --format '{{ playerName }}')"
@@ -227,8 +230,8 @@ case $1 in
 		notify-send \
 			"Forward 10s - $player_title" \
 			--app-name="${player_name^}" \
-			-i  "media-seek-forward-symbolic" \
-			-r "88888" \
+			-i  "media-seek-forward" \
+			--hint="string:x-dunst-stack-tag:amc" \
 		;;
 	"seek-backward-track") 
 		player_name="$(playerctl metadata --format '{{ playerName }}')"
@@ -237,15 +240,15 @@ case $1 in
 		notify-send \
 			"Back 10s - $player_title" \
 			--app-name="${player_name^}" \
-			-i  "media-seek-backward-symbolic" \
-			-r "88888" \
+			-i  "media-seek-backward" \
+			--hint="string:x-dunst-stack-tag:amc" \
 		;;
 	"+player-volume")
 		playerctl volume 0.1+
 		set_player_volume_info
 		notify-send "%$player_vol_pct" \
 			--app-name="${player_name^} Volume" \
-			-r "99999" \
+			--hint="string:x-dunst-stack-tag:amc-vol" \
 			-h "int:value:$player_vol_pct" \
 			--icon "$player_vol_icon" \
 		;;
@@ -254,7 +257,7 @@ case $1 in
 		set_player_volume_info
 		notify-send "%$player_vol_pct" \
 			--app-name="${player_name^} Volume" \
-			-r "99999" \
+			--hint="string:x-dunst-stack-tag:amc-vol" \
 			-h "int:value:$player_vol_pct" \
 			--icon "$player_vol_icon" \
 		;;

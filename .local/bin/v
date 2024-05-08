@@ -1,8 +1,11 @@
-#!/bin/bash
+#!/bin/sh
+
 
 if [ "$#" -eq 0 ]
 then
     nvim .
     exit
 fi
-nvim $@
+
+[ -w $1 ] && nvim $1 || sudo nvim $1
+# nvim $1

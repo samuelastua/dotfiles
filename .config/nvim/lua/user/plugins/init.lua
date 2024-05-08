@@ -1,7 +1,7 @@
 return {
     -- automatically adjusts 'shiftwidth' and 'expandtab'
     -- dont like this plugin but keeping here just in case
-    -- 'tpope/vim-sleuth',
+    'tpope/vim-sleuth',
     --  ^^^
     "eandrju/cellular-automaton.nvim",
     'ryanoasis/vim-devicons',
@@ -23,6 +23,9 @@ return {
         opts = {},
     },
     {
+        "prettier/vim-prettier",
+    },
+    {
         "mbbill/undotree",
         config = function()
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
@@ -32,6 +35,7 @@ return {
         'rose-pine/neovim',
         name = 'rose-pine',
         priority = 1000,
+        variant = "main",
         config = function()
             require('rose-pine').setup({
                 styles = {
@@ -45,8 +49,8 @@ return {
         'nvim-lualine/lualine.nvim',
         opts = {
             options = {
-                icons_enabled = true,
-                theme = 'pywal',
+                icons_enable = true,
+                theme = 'auto',
                 component_separators = '|',
                 section_separators = '',
             },

@@ -1,0 +1,39 @@
+
+sort=-time
+layer=overlay
+
+background-color=#0D0C11ff
+text-color=#e3e4e7
+progress-color=#5B6A94
+border-color=#3F4B8D
+
+width=400
+height=200
+
+border-size=2
+border-radius=10
+
+font=JetBrains Mono Nerd Font Mono
+icons=1
+icon-path=/usr/share/icons/Papirus-Dark
+default-timeout=5000
+ignore-timeout=1
+anchor=top-right
+
+format=<b>%s</b>\n%a\n%b
+
+[urgency=low]
+## border-color=#cccccc
+
+[urgency=normal]
+## border-color=#d08770
+
+[urgency=high]
+## border-color=#bf616a
+## default-timeout=0
+
+[category=mpd]
+## default-timeout=2000
+## group-by=category
+
+

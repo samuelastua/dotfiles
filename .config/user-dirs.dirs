@@ -10,6 +10,11 @@ XDG_DOWNLOAD_DIR="$HOME/downloads"
 XDG_DOCUMENTS_DIR="$HOME/documents"
 XDG_MUSIC_DIR="$HOME/"
 XDG_PICTURES_DIR="$HOME/pictures"
+<<<<<<< HEAD
 XDG_VIDEOS_DIR="$HOME/"
 XDG_TEMPLATES_DIR="$HOME/Templates"
 XDG_PUBLICSHARE_DIR="$HOME/Public"
+=======
+XDG_VIDEOS_DIR="$HOME/videos"
+XDG_SCREENSHOTS_DIR="$XDG_PICTURES_DIR/screenshots"
+>>>>>>> e5f6d33 (migrated system config to wayland (hyprland) + added nice utils)

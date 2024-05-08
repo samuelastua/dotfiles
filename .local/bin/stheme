@@ -54,10 +54,11 @@
 # 	- receive argument to get if $1 is dark enough
 # 	to saturate pywal behavior so OpenRGB colors are brighter
 
-type xwallpaper > /dev/null || {
-	echo "Need xwallpaper installed to work :'v"
-	exit 1
-	}
+# not using xwallpaper, cus wayland
+# type xwallpaper > /dev/null || {
+# 	echo "Need xwallpaper installed to work :'v"
+# 	exit 1
+# 	}
 type wal > /dev/null || {
 	echo "Need pywal installed to work :'v"
 	exit 1
@@ -67,6 +68,10 @@ type swo > /dev/null || {
 	exit 1
 }
 
+
+if [[ -z "${XDG_CONFIG_HOME}" ]]; then
+  XDG_CONFIG_HOME="$HOME/.config"
+fi
 
 if [[ -z "${XDG_STATE_HOME}" ]]; then
   XDG_STATE_HOME="$HOME/.local/state"
@@ -87,12 +92,13 @@ stheme_pwd="$stheme_state_dir/stheme_pwd"
 		exit 1;
 	}
 	cd $(cat $stheme_pwd) && echo "[INFO]: Successfully changed directory"
-	xwallpaper $(cat $stheme_xwallpaper_args) && echo "[INFO]: Successfully set wallpaper(s)"
+	# not using xwallpaper, cus wayland
+	# xwallpaper $(cat $stheme_xwallpaper_args) && echo "[INFO]: Successfully set wallpaper(s)" 
 	wal -nR # -n so bg doesnt change and keep bg confed by xwallpaper
 	if pgrep -x "openrgb" > /dev/null 
 	then
 		# running openrgb...
-		swo &
+		swo
 	fi
 	exit 0
 }
@@ -143,6 +149,17 @@ type dunst > /dev/null && {
 		pkill dunst
 		dunst &
 	}
+}
+
+type mako > /dev/null && {
+	pgrep -x makw > /dev/null && {
+		sync-wal-mako
+	}
+}
+
+type waybar > /dev/null && {
+	killall waybar
+	waybar & disown
 }
 
 type spicetify > /dev/null && {
