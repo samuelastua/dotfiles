@@ -22,6 +22,7 @@ vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 
 
+
 -- searching
 vim.o.hlsearch = false
 vim.o.incsearch = true
@@ -38,6 +39,11 @@ vim.o.splitbelow = true
 
 vim.o.colorcolumn = "80"
 vim.o.signcolumn = "auto"
+
+-- expo dev
+vim.o.swapfile = false
+
+
 -- vim.wo.signcolumn = 'yes'
 vim.opt.isfname:append("@-@")
 vim.opt.scrolloff = 999
