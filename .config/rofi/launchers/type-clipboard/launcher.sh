@@ -16,5 +16,5 @@ theme='style-3'
 
 ## Run
 
-cliphist list | rofi -dmenu -p "Emoji picker" -theme ${dir}/${theme}.rasi | cliphist decode | wl-copy
+cliphist list | rofi -dmenu -p "Clipboard history" -theme ${dir}/${theme}.rasi | cliphist decode | wl-copy
 
