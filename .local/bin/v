@@ -7,5 +7,8 @@ then
     exit
 fi
 
+
+[ -f $1 ] || touch $1
+
 [ -w $1 ] && nvim $1 || sudo nvim $1
 # nvim $1
