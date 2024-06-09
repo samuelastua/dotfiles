@@ -137,12 +137,13 @@ export BROWSER=firefox
 
 # bindkeys
 bindkey -v # must be run before all other keybinds cause overrides
-bindkey -s ^E "f\n"
+bindkey -s ^W "fzf-here .\n"
+bindkey -s ^H "fzf-here ~\n"
 bindkey -s ^R "ranger\n"
 bindkey -s ^V "v\n"
 bindkey -s ^F "tmux-sessionizer\n"
 bindkey -s ^A "tmux new-session -A -s hacking\n"
-bindkey -s ^W "pwd | xclip -selection clipboard\n"
+# bindkey -s ^W "pwd | xclip -selection clipboard\n"
 bindkey '^ ' autosuggest-accept # <-- ctrl+space to accept current suggestion
 
 #

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#   fuzzy finds in specified directory and "vims" into it
+
+if [[ ! -n $1 ]]; then
+    echo "[ERROR]: Must specify a dir"
+    exit 1
+fi
+
+if [[ -w $1 ]]; then
+    selected=$(find $1 | fzf)
+else
+    selected=$(sudo find $1 | sudo fzf)
+fi
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+v $selected
