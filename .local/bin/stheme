@@ -159,7 +159,7 @@ type mako > /dev/null && {
 
 type waybar > /dev/null && {
 	killall waybar
-	waybar &> /dev/null
+	waybar &> /dev/null & disown
 }
 
 # type spicetify > /dev/null && {
