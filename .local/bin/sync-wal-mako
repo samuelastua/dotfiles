@@ -10,7 +10,7 @@ colors=(
     ["background-color"]="${background}ff"
     ["text-color"]="$foreground"
     ["border-color"]="$color4"
-    ["progress-color"]="$color3"
+    ["progress-color"]="$color2"
 )
 
 for color_name in "${!colors[@]}"; do
