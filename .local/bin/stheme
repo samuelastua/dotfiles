@@ -159,24 +159,23 @@ type mako > /dev/null && {
 
 type waybar > /dev/null && {
 	killall waybar
-	waybar & disown
+	waybar &> /dev/null
 }
 
-type spicetify > /dev/null && {
-	spicetify apply && {
-		echo "[INFO]: Successfully re-applied spicetify theme" 
-		echo "[INFO]: Re-opening spotify client" &
-		sleep 2 
-		# ^^^ Above sleep is necessary so spotify-launcher
-		# actually opens. Why does this happen??? Don't exactly know
-		# but discovered while trying do debug the fact that spotify
-		# didn't launch after "spicetify update". It might be some
-		# internal race condition happening at the spotify client app,
-		(spotify-launcher 1> /dev/null 2>&1 &) && echo "[INFO]: Successfully opened spotify client" 
-		exit 0
-	}
-	echo "[ERROR]: Couldn't re-apply spicetify theme" 
-	exit 1
-}
-
-
+# type spicetify > /dev/null && {
+# 	spicetify apply && {
+# 		echo "[INFO]: Successfully re-applied spicetify theme" 
+# 		echo "[INFO]: Re-opening spotify client" &
+# 		sleep 2 
+# 		# ^^^ Above sleep is necessary so spotify-launcher
+# 		# actually opens. Why does this happen??? Don't exactly know
+# 		# but discovered while trying do debug the fact that spotify
+# 		# didn't launch after "spicetify update". It might be some
+# 		# internal race condition happening at the spotify client app,
+# 		(spotify-launcher 1> /dev/null 2>&1 &) && echo "[INFO]: Successfully opened spotify client" 
+# 		exit 0
+# 	}
+# 	echo "[ERROR]: Couldn't re-apply spicetify theme" 
+# 	exit 1
+# }
+#

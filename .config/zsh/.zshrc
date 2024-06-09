@@ -198,6 +198,6 @@ SAVEHIST=10000
 # Apply pywal to new terminals
 (cat ~/.cache/wal/sequences &)
 source ~/.cache/wal/colors-tty.sh # <<--- suppport for TTYs
-echo " "
-neofetch
+# echo " "
+# neofetch
 

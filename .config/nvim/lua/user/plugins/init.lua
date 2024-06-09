@@ -9,7 +9,7 @@ return {
         "folke/zen-mode.nvim",
         opts = {},
         config = function()
-            vim.keymap.set("n", "<leader>z", ":ZenMode<CR>" )
+            vim.keymap.set("n", "<leader>z", ":ZenMode<CR>")
         end
     },
     {
@@ -31,26 +31,85 @@ return {
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
         end
     },
+    -- {
+    --     'rose-pine/neovim',
+    --     name = 'rose-pine',
+    --     priority = 1000,
+    --     variant = "main",
+    --     config = function()
+    --         require('rose-pine').setup({
+    --             styles = {
+    --                 transparency = true,
+    --             }
+    --         })
+    --         vim.cmd("colorscheme rose-pine")
+    --     end
+    -- },
+
     {
-        'rose-pine/neovim',
-        name = 'rose-pine',
+        "folke/tokyonight.nvim",
+        lazy = false,
         priority = 1000,
-        variant = "main",
+        opts = {},
         config = function()
-            require('rose-pine').setup({
-                styles = {
-                    transparency = true,
-                }
+            require("tokyonight").setup({
+                transparent = true
             })
-            vim.cmd("colorscheme rose-pine")
+
+            vim.cmd("colorscheme tokyonight-night")
+            -- vim.api.nvim_set_hl(0, "Nrmal", { bg = "none" })
+            -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         end
     },
+
+
+    -- {
+    --     "bluz71/vim-moonfly-colors",
+    --     name = "moonfly",
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         vim.cmd("colorscheme moonfly")
+    --         vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    --     end
+    -- },
+
+    -- {
+    --     "bratpeki/truedark-vim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     opts = {},
+    --     config = function()
+    --         vim.cmd("colorscheme truedark")
+    --     end
+    -- },
+
+    -- {
+    --     "catppuccin/nvim",
+    --     name = "catppuccin",
+    --     priority = 1000,
+    --     config = function()
+    --         vim.cmd("colorscheme catppuccin-macchiato")
+    --     end
+    -- },
+    {
+        "utilyre/barbecue.nvim",
+        name = "barbecue",
+        version = "*",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        opts = {
+        },
+    },
+
     {
         'nvim-lualine/lualine.nvim',
         opts = {
             options = {
                 icons_enable = true,
-                theme = 'auto',
+                theme = 'tokyonight',
                 component_separators = '|',
                 section_separators = '',
             },

@@ -53,6 +53,6 @@ type openrgb > /dev/null || {
 
 
 # Change working directory so that relative imports work from within wal.js
-cd ~/.local/bin/swo.d
+cd ~/.local/bin/swo.d/
 node swo.js
 
