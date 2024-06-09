@@ -127,7 +127,7 @@ fi
 
 wal -n -i "$pywal_image"  -o swo &
 echo "$@" > $stheme_xwallpaper_args
-xwallpaper "$@" && echo "[INFO]: Successfully set wallpaper(s)"
+# xwallpaper "$@" && echo "[INFO]: Successfully set wallpaper(s)"
 echo $PWD > $stheme_pwd
 
 if pgrep -x "openrgb" > /dev/null 
@@ -137,11 +137,11 @@ then
 fi
 
 
-type pywalfox > /dev/null && {
-	echo "[INFO]: Applying theme to firefox (via pywalfox)" 
-	pywalfox update || echo "[ERROR]: Error while theming firefox (via pywalfox)" 
-	echo "[INFO]: Successfully themed firefox (via pywalfox)" 
-}
+# type pywalfox > /dev/null && {
+# 	echo "[INFO]: Applying theme to firefox (via pywalfox)" 
+# 	pywalfox update || echo "[ERROR]: Error while theming firefox (via pywalfox)" 
+# 	echo "[INFO]: Successfully themed firefox (via pywalfox)" 
+# }
 
 type dunst > /dev/null && {
 	pgrep -x dunst > /dev/null && {
