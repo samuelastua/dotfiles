@@ -46,7 +46,7 @@ vim.o.swapfile = false
 
 -- vim.wo.signcolumn = 'yes'
 vim.opt.isfname:append("@-@")
-vim.opt.scrolloff = 999
+-- vim.opt.scrolloff = 999
 
 -- tabs
 -- vim.o.shiftwidth = 4
