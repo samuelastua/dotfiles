@@ -152,7 +152,7 @@ type dunst > /dev/null && {
 }
 
 type mako > /dev/null && {
-	pgrep -x makw > /dev/null && {
+	pgrep -x mako > /dev/null && {
 		sync-wal-mako
 	}
 }

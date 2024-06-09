@@ -1,0 +1,26 @@
+#!/bin/bash
+
+[[ -f "go.mod" ]] || {
+        echo "[ERROR]: Not in root of go project (go.mod missing)"
+        exit 1
+}
+
+echo "[INFO]: Found go.mod"
+
+[[ "$#" -eq 0 ]] && {
+        echo "[ERROR]: Need 2 args: [REGEX] and [NEWNAME]"
+        exit 1
+}
+
+[[ "$1" == "--help" ]] && {
+        echo "Usage: $(basename "$0") [OPTION] [REGEX] [NEWNAME]"
+        exit
+}
+
+[[ ! -n "$2" ]] && {
+        echo "[ERROR]: Missing seccond arg: [NEWNAME]"
+        exit 1
+}
+
+
+rg "$1" . --files-with-matches -0 | xargs -0 sed -i "s/$1/$2/g"
