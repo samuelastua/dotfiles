@@ -95,11 +95,12 @@ stheme_pwd="$stheme_state_dir/stheme_pwd"
 	# not using xwallpaper, cus wayland
 	# xwallpaper $(cat $stheme_xwallpaper_args) && echo "[INFO]: Successfully set wallpaper(s)" 
 	wal -nR # -n so bg doesnt change and keep bg confed by xwallpaper
-	if pgrep -x "openrgb" > /dev/null 
-	then
-		# running openrgb...
-		swo
-	fi
+	# if pgrep -x "openrgb" > /dev/null 
+	# then
+	# 	# running openrgb...
+	# 	# swo 
+	# 	# prgb # NO NEED FOR THIS???
+	# fi
 	exit 0
 }
 
@@ -125,15 +126,18 @@ if [[ -z "$pywal_image" ]]; then
 	exit 1
 fi
 
-wal -n -i "$pywal_image"  -o swo &
+wal -n -i "$pywal_image"  -o prgb &
 echo "$@" > $stheme_xwallpaper_args
 # xwallpaper "$@" && echo "[INFO]: Successfully set wallpaper(s)"
 echo $PWD > $stheme_pwd
 
+#
+#  Commented this block cause no need for it as OF NOW
 if pgrep -x "openrgb" > /dev/null 
 then
 	# running openrgb...
-	swo && echo "[INFO]: Successfully synced pywal & openrgb"
+	# swo && echo "[INFO]: Successfully synced pywal & openrgb"
+	prgb && echo "[INFO]: Successfully set custom OpenRGB profile"
 fi
 
 
