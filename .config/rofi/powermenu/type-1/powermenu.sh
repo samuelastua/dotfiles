@@ -70,7 +70,8 @@ run_cmd() {
 		elif [[ $1 == '--suspend' ]]; then
 			# mpc -q pause
 			# amixer set Master mute
-			loginctl suspend
+			# loginctl suspend
+			hyprctl dispatch exit
 		elif [[ $1 == '--logout' ]]; then
 			# loginctl terminate-user $USER
 			hyprctl dispatch exit
