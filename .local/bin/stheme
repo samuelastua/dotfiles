@@ -95,12 +95,12 @@ stheme_pwd="$stheme_state_dir/stheme_pwd"
 	# not using xwallpaper, cus wayland
 	# xwallpaper $(cat $stheme_xwallpaper_args) && echo "[INFO]: Successfully set wallpaper(s)" 
 	wal -nR # -n so bg doesnt change and keep bg confed by xwallpaper
-	# if pgrep -x "openrgb" > /dev/null 
-	# then
-	# 	# running openrgb...
-	# 	# swo 
-	# 	# prgb # NO NEED FOR THIS???
-	# fi
+	if pgrep -x "openrgb" > /dev/null 
+	then
+		# running openrgb...
+		# swo 
+		prgb # NO NEED FOR THIS???
+	fi
 	exit 0
 }
 
