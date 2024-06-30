@@ -26,6 +26,18 @@ return {
         "prettier/vim-prettier",
     },
     {
+        "luckasRanarison/tailwind-tools.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        opts = {}, -- your configuration
+        config = function()
+            require("tailwind-tools").setup({
+                document_color = {
+                    kind = 'foreground'
+                }
+            })
+        end
+    },
+    {
         "mbbill/undotree",
         config = function()
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
