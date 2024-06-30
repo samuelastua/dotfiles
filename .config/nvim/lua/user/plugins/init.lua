@@ -32,7 +32,7 @@ return {
         config = function()
             require("tailwind-tools").setup({
                 document_color = {
-                    kind = 'foreground'
+                    kind = 'background'
                 }
             })
         end
