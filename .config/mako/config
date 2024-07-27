@@ -2,10 +2,10 @@
 sort=-time
 layer=overlay
 
-background-color=#0f1016ff
-text-color=#c3c9dc
-progress-color=#518585
-border-color=#73D9CB
+background-color=#0F0D1Bff
+text-color=#c1aebd
+progress-color=#453B6B
+border-color=#65516C
 
 width=400
 height=200

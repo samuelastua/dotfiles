@@ -43,36 +43,36 @@ return {
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
         end
     },
-    -- {
-    --     'rose-pine/neovim',
-    --     name = 'rose-pine',
-    --     priority = 1000,
-    --     variant = "main",
-    --     config = function()
-    --         require('rose-pine').setup({
-    --             styles = {
-    --                 transparency = true,
-    --             }
-    --         })
-    --         vim.cmd("colorscheme rose-pine")
-    --     end
-    -- },
-
     {
-        "folke/tokyonight.nvim",
-        lazy = false,
+        'rose-pine/neovim',
+        name = 'rose-pine',
         priority = 1000,
-        opts = {},
+        variant = "main",
         config = function()
-            require("tokyonight").setup({
-                transparent = true
+            require('rose-pine').setup({
+                styles = {
+                    transparency = true,
+                }
             })
-
-            vim.cmd("colorscheme tokyonight-night")
-            -- vim.api.nvim_set_hl(0, "Nrmal", { bg = "none" })
-            -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+            vim.cmd("colorscheme rose-pine")
         end
     },
+
+    -- {
+    --     "folke/tokyonight.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     opts = {},
+    --     config = function()
+    --         require("tokyonight").setup({
+    --             transparent = true
+    --         })
+    --
+    --         vim.cmd("colorscheme tokyonight-night")
+    --         -- vim.api.nvim_set_hl(0, "Nrmal", { bg = "none" })
+    --         -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    --     end
+    -- },
 
 
     -- {
