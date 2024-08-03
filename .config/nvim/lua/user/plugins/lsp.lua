@@ -64,6 +64,11 @@ return {
 
                 -- Create a command `:Format` local to the LSP buffer
                 vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+                    -- local server_name = vim.lsp.get_active_clients()[1].name
+                    -- if (server_name == 'pyright') then
+                    --     vim.cmd("silent !black %")
+                    --     return
+                    -- end
                     vim.lsp.buf.format({
                         formatting_options = {
                             -- tabSize = 4
