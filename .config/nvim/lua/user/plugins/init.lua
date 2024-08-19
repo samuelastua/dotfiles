@@ -121,7 +121,7 @@ return {
         opts = {
             options = {
                 icons_enable = true,
-                theme = 'tokyonight',
+                theme = 'rose-pine',
                 component_separators = '|',
                 section_separators = '',
             },
