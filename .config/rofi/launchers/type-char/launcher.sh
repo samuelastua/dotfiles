@@ -16,14 +16,18 @@ theme='style-3'
 
 ## Run
 
-chosen=$(cut -d ';' -f1 ~/.local/share/unicode/chars | \
-        rofi  -dmenu -p "Char picker" -theme ${dir}/${theme}.rasi | \
-        sed "s/\ .*//" )
 
+chosen=$(cut -d ';' -f1 ~/.local/share/unicode/chars | \
+    rofi -dmenu -p "Char picker" -theme ${dir}/${theme}.rasi | \
+    sed "s/\ .*//")
 
 [ -z "$chosen" ] && exit
 
-printf "%s" "$chosen" | wl-copy 
-notify-send "'$chosen' copied to clipboard." --app-name="Char picker" 
+# copy to clipboard
+printf "%s" "$chosen" | wl-copy
+sleep 0.1
 
+# copy active window
+wtype -- "$chosen"
 
+notify-send "'$chosen' copied and pasted." --app-name="Char picker"

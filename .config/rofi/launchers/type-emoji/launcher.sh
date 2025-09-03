@@ -15,15 +15,25 @@ dir="$HOME/.config/rofi/launchers/type-emoji"
 theme='style-3'
 
 ## Run
-
 chosen=$(cut -d ';' -f1 ~/.local/share/unicode/emojis | \
-        rofi  -dmenu -p "Emoji picker" -theme ${dir}/${theme}.rasi | \
-        sed "s/\ .*//" )
-
+    rofi -dmenu -p "Emoji picker" -theme ${dir}/${theme}.rasi | \
+    sed "s/\ .*//")
 
 [ -z "$chosen" ] && exit
 
-printf "%s" "$chosen" | wl-copy 
-notify-send "'$chosen' copied to clipboard." --app-name="Emoji picker" 
+# Copy to clipboard
+printf "%s" "$chosen" | wl-copy
+sleep 0.1
+
+# Paste in active window
+wtype -- "$chosen"
+
+# Notification with truncation
+snippet=$(echo "$chosen" | tr -d '\n' | head -c 10)
+[ ${#chosen} -gt 10 ] && snippet="$snippet…"
+
+notify-send "Emoji picked" "'$snippet'" --app-name="Emoji picker"
+
+
 
 
