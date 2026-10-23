@@ -25,12 +25,17 @@ return {
         },
     },
     {
+        -- replaces the EOL neodev.nvim: lua_ls completion for the nvim API
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = {},
+    },
+    {
         'neovim/nvim-lspconfig',
         dependencies = {
-            { 'williamboman/mason.nvim', config = true },
-            'williamboman/mason-lspconfig.nvim',
+            { 'mason-org/mason.nvim', config = true },
+            'mason-org/mason-lspconfig.nvim',
             { 'j-hui/fidget.nvim',       opts = {} },
-            'folke/neodev.nvim',
         },
         config = function()
             local on_attach = function(_, bufnr)
@@ -131,9 +136,6 @@ return {
                     },
                 },
             }
-            -- Setup neovim lua configuration
-            require('neodev').setup()
-
             -- broadcast additional nvim-cmp completion capabilities to servers
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
