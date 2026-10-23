@@ -2,6 +2,10 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Homebrew isn't on the default PATH on macOS; load it before oh-my-zsh so
+# plugins and completions can see brew-installed tools.
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$ZDOTDIR/ohmyzsh"
 
@@ -143,7 +147,11 @@ bindkey -s ^R "ranger\n"
 bindkey -s ^V "v\n"
 bindkey -s ^F "tmux-sessionizer\n"
 bindkey -s ^A "tmux new-session -A -s hacking\n"
-bindkey -s ^P "pwd | xclip -selection clipboard\n"
+if [[ $OSTYPE == darwin* ]]; then
+    bindkey -s ^P "pwd | pbcopy\n"
+else
+    bindkey -s ^P "pwd | xclip -selection clipboard\n"
+fi
 bindkey '^ ' autosuggest-accept # <-- ctrl+space to accept current suggestion
 
 #
